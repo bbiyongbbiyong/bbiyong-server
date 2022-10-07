@@ -45,9 +45,11 @@ public class User {
 
     @Builder
     public User(String name, String profile_img, String email, Provider provider, boolean is_student) {
-        Assert.hasText(name, "name must not be null");
-        Assert.hasText(profile_img, "profile_img must not be null");
-        Assert.hasText(email, "email must not be null");
+        Assert.notNull(name, "name must not be null");
+        Assert.notNull(profile_img, "profile_img must not be null");
+        Assert.notNull(email, "email must not be null");
+        Assert.notNull(provider, "provider must not be null");
+        Assert.notNull(is_student, "is_student must not be null");
         this.name = name;
         this.profile_img = profile_img;
         this.email = email;

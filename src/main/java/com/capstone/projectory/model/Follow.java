@@ -12,31 +12,31 @@ import java.util.Date;
 @Entity
 @Getter
 @NoArgsConstructor
-public class PostLike {
+public class Follow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "postlike_id", nullable = false)
+    @Column(name = "follow_id", nullable = false)
     private Long id;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
     @NotNull
-    private Long user_id;
+    private Long followee_id;
 
-    @ManyToOne(targetEntity = Post.class)
-    @JoinColumn(name = "post_id")
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "user_id")
     @NotNull
-    private Long post_id;
+    private Long follower_id;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date created_at;
 
     @Builder
-    public PostLike(Long user_id, Long post_id) {
-        Assert.notNull(user_id, "userId must not be null");
-        Assert.notNull(post_id, "postId must not be null");
-        this.user_id = user_id;
-        this.post_id = post_id;
+    public Follow(Long follower_id, Long followee_id) {
+        Assert.notNull(follower_id, "followerId must not be null");
+        Assert.notNull(followee_id, "followeeId must not be null");
+        this.follower_id = follower_id;
+        this.followee_id = followee_id;
     }
 }
