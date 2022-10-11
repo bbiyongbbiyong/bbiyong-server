@@ -1,6 +1,7 @@
-package com.capstone.projectory.model;
+package com.capstone.projectory.comment;
 
-import com.sun.istack.NotNull;
+import com.capstone.projectory.post.Post;
+import com.capstone.projectory.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,32 +21,32 @@ public class Comment {
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
-    @NotNull
-    private Long user_id;
+    @Column(nullable = false)
+    private Long userId;
 
     @ManyToOne(targetEntity = Post.class)
     @JoinColumn(name = "post_id")
-    @NotNull
-    private Long post_id;
+    @Column(nullable = false)
+    private Long postId;
 
     @Column(name = "comment_content", length = 200, nullable = false)
     private String content;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date created_at;
+    private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date modified_at;
+    private Date modifiedAt;
 
     @Builder
-    public Comment(Long user_id, Long post_id, String content) {
-        Assert.notNull(user_id, "userId must not be null");
-        Assert.notNull(post_id, "postId must not be null");
+    public Comment(Long userId, Long postId, String content) {
+        Assert.notNull(userId, "userId must not be null");
+        Assert.notNull(postId, "postId must not be null");
         Assert.notNull(content, "content must not be null");
-        this.user_id = user_id;
-        this.post_id = post_id;
+        this.userId = userId;
+        this.postId = postId;
         this.content = content;
     }
 }

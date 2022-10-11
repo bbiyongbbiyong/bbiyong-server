@@ -1,6 +1,6 @@
-package com.capstone.projectory.model;
+package com.capstone.projectory.searchrecord;
 
-import com.sun.istack.NotNull;
+import com.capstone.projectory.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,20 +20,20 @@ public class SearchRecord {
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
-    @NotNull
-    private Long user_id;
+    @Column(nullable = false)
+    private Long userId;
 
     @Column(name = "search_content")
     private String content;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date created_at;
+    private Date createdAt;
 
     @Builder
-    public SearchRecord(Long user_id, String content) {
-        Assert.notNull(user_id, "userId must not be null");
-        this.user_id = user_id;
+    public SearchRecord(Long userId, String content) {
+        Assert.notNull(userId, "userId must not be null");
+        this.userId = userId;
         this.content = content;
     }
 }

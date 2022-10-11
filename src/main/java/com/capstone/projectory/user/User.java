@@ -1,6 +1,6 @@
-package com.capstone.projectory.model;
-import com.capstone.projectory.model.Converter.BooleanToYNConverter;
+package com.capstone.projectory.user;
 
+import com.capstone.projectory.user.converter.BooleanToYNConverter;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +22,7 @@ public class User {
     private String name;
 
     @Column(columnDefinition = "TEXT", nullable = false)
-    private String profile_img;
+    private String profileImg;
 
     @Column(length = 30, nullable = false)
     private String email;
@@ -33,28 +33,28 @@ public class User {
 
     @Convert(converter = BooleanToYNConverter.class)
     @Column(nullable = false)
-    private boolean is_student;
+    private boolean isStudent;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date created_at;
+    private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date modified_at;
+    private Date modifiedAt;
 
     @Builder
-    public User(String name, String profile_img, String email, Provider provider, boolean is_student) {
+    public User(String name, String profileImg, String email, Provider provider, boolean isStudent) {
         Assert.notNull(name, "name must not be null");
-        Assert.notNull(profile_img, "profile_img must not be null");
+        Assert.notNull(profileImg, "profileImg must not be null");
         Assert.notNull(email, "email must not be null");
         Assert.notNull(provider, "provider must not be null");
-        Assert.notNull(is_student, "is_student must not be null");
+        Assert.notNull(isStudent, "isStudent must not be null");
         this.name = name;
-        this.profile_img = profile_img;
+        this.profileImg = profileImg;
         this.email = email;
         this.provider = provider;
-        this.is_student = is_student;
+        this.isStudent = isStudent;
     }
 
     enum Provider {

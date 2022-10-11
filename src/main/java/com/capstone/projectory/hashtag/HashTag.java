@@ -1,5 +1,7 @@
-package com.capstone.projectory.model;
+package com.capstone.projectory.hashtag;
 
+import com.capstone.projectory.post.Post;
+import com.capstone.projectory.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,24 +21,26 @@ public class HashTag {
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
-    private Long user_id;
+    @Column(nullable = false)
+    private Long userId;
 
     @ManyToOne(targetEntity = Post.class)
     @JoinColumn(name = "post_id")
-    private Long post_id;
+    @Column(nullable = false)
+    private Long postId;
 
     @Column(name = "hashtag_content", length = 50, nullable = false)
     private String content;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date created_at;
+    private Date createdAt;
 
     @Builder
-    public HashTag(Long user_id, Long post_id, String content) {
+    public HashTag(Long userId, Long postId, String content) {
         Assert.notNull(content, "hashtag must not be null");
-        this.user_id = user_id;
-        this.post_id = post_id;
+        this.userId = userId;
+        this.postId = postId;
         this.content = content;
     }
 }

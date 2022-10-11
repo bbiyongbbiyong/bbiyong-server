@@ -1,7 +1,7 @@
-package com.capstone.projectory.model;
+package com.capstone.projectory.post;
 
 
-import com.sun.istack.NotNull;
+import com.capstone.projectory.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +21,8 @@ public class Post {
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
-    @NotNull
-    private Long user_id;
+    @Column(nullable = false)
+    private Long userId;
 
     @Column(length = 50, nullable = false)
     private String title;
@@ -30,25 +30,25 @@ public class Post {
     @Column(name = "post_content", nullable = false)
     private String content;
 
-    @NotNull
-    private int view_count;
+    @Column(nullable = false)
+    private int viewCount;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date created_at;
+    private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date modified_at;
+    private Date modifiedAt;
 
     @Builder
-    public Post(Long user_id, String title, String content) {
-        Assert.notNull(user_id, "userId must not be null");
+    public Post(Long userId, String title, String content) {
+        Assert.notNull(userId, "userId must not be null");
         Assert.notNull(title, "title must not be null");
         Assert.notNull(content, "content must not be null");
-        this.user_id = user_id;
+        this.userId = userId;
         this.title = title;
         this.content = content;
-        this.view_count = 0;
+        this.viewCount = 0;
     }
 }

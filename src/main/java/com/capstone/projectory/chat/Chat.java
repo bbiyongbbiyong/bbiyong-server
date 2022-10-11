@@ -1,6 +1,6 @@
-package com.capstone.projectory.model;
+package com.capstone.projectory.chat;
 
-import com.sun.istack.NotNull;
+import com.capstone.projectory.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,28 +20,28 @@ public class Chat {
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
-    @NotNull
-    private Long sender_id;
+    @Column(nullable = false)
+    private Long senderId;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
-    @NotNull
-    private Long receiver_id;
+    @Column(nullable = false)
+    private Long receiverId;
 
     @Column(name = "chat_content", length = 100, nullable = false)
     private String content;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date created_at;
+    private Date createdAt;
 
     @Builder
-    public Chat(Long sender_id, Long receiver_id, String content) {
-        Assert.notNull(sender_id, "senderId must not be null");
-        Assert.notNull(receiver_id, "receiverId must not be null");
+    public Chat(Long senderId, Long receiverId, String content) {
+        Assert.notNull(senderId, "senderId must not be null");
+        Assert.notNull(receiverId, "receiverId must not be null");
         Assert.notNull(content, "content must not be null");
-        this.sender_id = sender_id;
-        this.receiver_id = receiver_id;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
         this.content = content;
     }
 }

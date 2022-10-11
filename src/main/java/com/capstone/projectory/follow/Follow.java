@@ -1,6 +1,6 @@
-package com.capstone.projectory.model;
+package com.capstone.projectory.follow;
 
-import com.sun.istack.NotNull;
+import com.capstone.projectory.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,23 +20,23 @@ public class Follow {
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
-    @NotNull
-    private Long followee_id;
+    @Column(nullable = false)
+    private Long followeeId;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_id")
-    @NotNull
-    private Long follower_id;
+    @Column(nullable = false)
+    private Long followerId;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date created_at;
+    private Date createdAt;
 
     @Builder
-    public Follow(Long follower_id, Long followee_id) {
-        Assert.notNull(follower_id, "followerId must not be null");
-        Assert.notNull(followee_id, "followeeId must not be null");
-        this.follower_id = follower_id;
-        this.followee_id = followee_id;
+    public Follow(Long followerId, Long followeeId) {
+        Assert.notNull(followerId, "followerId must not be null");
+        Assert.notNull(followeeId, "followeeId must not be null");
+        this.followerId = followerId;
+        this.followeeId = followeeId;
     }
 }
