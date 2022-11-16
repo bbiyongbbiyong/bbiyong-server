@@ -28,6 +28,19 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+
+    - name: Set Yaml
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: ./src/main/resources/application.yml, ./src/main/resources/application-datasource.yml
+      env:
+        spring.datasource.url: ${{ secrets.DATASOURCE_URL }}
+        spring.datasource.username: ${{ secrets.DATASOURCE_USERNAME }}
+        spring.datasource.password: ${{ secrets.DATASOURCE_PASSWORD }}
+
+    - name: Run chmod to make gradlew executable
+      run: chmod +x ./gradlew
+
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
