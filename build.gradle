@@ -24,6 +24,8 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'mysql:mysql-connector-java'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
 }
 
