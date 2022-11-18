@@ -1,4 +1,4 @@
-package com.capstone.bbiyongbbiyong;
+package com.capstone.bbiyong;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,8 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BbiyongApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BbiyongApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BbiyongApplication.class, args);
+    }
 
 }
+
