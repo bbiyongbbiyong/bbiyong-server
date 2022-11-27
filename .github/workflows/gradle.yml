@@ -32,11 +32,12 @@ jobs:
     - name: Set Yaml
       uses: microsoft/variable-substitution@v1
       with:
-        files: ./src/main/resources/application.yml, ./src/main/resources/application-datasource.yml
+        files: ./src/main/resources/application.yml, ./src/main/resources/application-datasource.yml, ./src/main/resources/application-setting.yml
       env:
         spring.datasource.url: ${{ secrets.DATASOURCE_URL }}
         spring.datasource.username: ${{ secrets.DATASOURCE_USERNAME }}
         spring.datasource.password: ${{ secrets.DATASOURCE_PASSWORD }}
+        app.seoul-openapi-key: ${{secrets.SEOUL_OPENAPI_KEY}}
 
     - name: Run chmod to make gradlew executable
       run: chmod +x ./gradlew
