@@ -1,0 +1,2 @@
+app:
+  seoul-openapi-key: ${SEOUL_OPENAPI_KEY}
