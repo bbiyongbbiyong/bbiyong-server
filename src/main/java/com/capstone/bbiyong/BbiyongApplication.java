@@ -1,13 +1,14 @@
-package com.capstone.projectory;
+package com.capstone.bbiyong;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class ProjectoryApplication {
+//@SpringBootApplication
+public class BbiyongApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ProjectoryApplication.class, args);
+        SpringApplication.run(BbiyongApplication.class, args);
     }
 
 }
+

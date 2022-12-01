@@ -1,10 +1,10 @@
-package com.capstone.projectory;
+package com.capstone.bbiyong;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProjectoryApplicationTests {
+class BbiyongApplicationTests {
 
 	@Test
 	void contextLoads() {
