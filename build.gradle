@@ -29,6 +29,8 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	implementation 'io.github.redouane59.twitter:twittered:2.21'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	implementation 'org.json:json:20220924'
 }
 
 tasks.named('test') {
