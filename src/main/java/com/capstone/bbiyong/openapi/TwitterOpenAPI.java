@@ -38,10 +38,10 @@ public class TwitterOpenAPI {
 
         // 트위터 등록정보
         private final TwitterClient twitterClient = new TwitterClient(TwitterCredentials.builder()
-                .accessToken(ACCESS_TOKEN)
-                .accessTokenSecret(ACCESS_TOKEN_SECRET)
-                .apiKey(API_KEY)
-                .apiSecretKey(API_SECRET_KEY)
+                .accessToken("1589104619552022528-n3nCNNaegfh1L0PJDMC8PPnb06ktfC")
+                .accessTokenSecret("HB0zsGj4vKmrCx4oONMv0VXPMX40gLGbQEWtPsKkSGCHY")
+                .apiKey("NyELrY5Ow6EvtkBqpzjhbtfNi")
+                .apiSecretKey("9XxENIHHT5qmt5huEWFN00tLRo4aRmC7ES64klTtV69GdZ1E7X")
                 .build());
 
         public void callOpenAPI() {
