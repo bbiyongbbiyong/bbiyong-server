@@ -1,7 +1,6 @@
-package com.capstone.bbiyong.twitter.controller;
+package com.capstone.bbiyong.metro.controller;
 
-import com.capstone.bbiyong.openapi.OpenAPI;
-import com.capstone.bbiyong.openapi.TwitterOpenAPI;
+import com.capstone.bbiyong.openapi.MetroOpenAPI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,14 +15,14 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("twitter")
 @RequiredArgsConstructor
-public class TwitterController {
+public class MetroController {
 
-    private final TwitterOpenAPI twitterOpenAPI;
+    private final MetroOpenAPI metroOpenAPI;
 
     @Scheduled(fixedDelay = 60000)  // 1분 간격
     @GetMapping("")
     @ResponseStatus(OK)
     public void callTwitterOpenAPI() {
-        twitterOpenAPI.callOpenAPI();
+        metroOpenAPI.callOpenAPI();
     }
 }

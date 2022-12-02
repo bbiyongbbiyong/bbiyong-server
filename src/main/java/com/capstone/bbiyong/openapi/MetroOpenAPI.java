@@ -1,7 +1,7 @@
 package com.capstone.bbiyong.openapi;
 
-import com.capstone.bbiyong.twitter.domain.Twitter;
-import com.capstone.bbiyong.twitter.repository.TwitterRepository;
+import com.capstone.bbiyong.metro.domain.Metro;
+import com.capstone.bbiyong.metro.repository.MetroRepository;
 import io.github.redouane59.twitter.TwitterClient;
 import io.github.redouane59.twitter.dto.endpoints.AdditionalParameters;
 import io.github.redouane59.twitter.dto.tweet.TweetList;
@@ -18,9 +18,9 @@ import java.time.LocalDateTime;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class TwitterOpenAPI {
+public class MetroOpenAPI {
 
-        private final TwitterRepository twitterRepository;
+        private final MetroRepository metroRepository;
 
         @Value("${app.twitterAccessToken}")
         private String ACCESS_TOKEN;
@@ -68,12 +68,12 @@ public class TwitterOpenAPI {
                                 String result = processText(text);
                                 LocalDateTime date = tweet.getCreatedAt();
 
-                                Twitter twitter = Twitter.builder()
+                                Metro metro = Metro.builder()
                                         .tweetId(tweetId)
                                         .text(result)
                                         .startDateTime(date)
                                         .build();
-                                twitterRepository.save(twitter);
+                                metroRepository.save(metro);
                         }
                 }
         }

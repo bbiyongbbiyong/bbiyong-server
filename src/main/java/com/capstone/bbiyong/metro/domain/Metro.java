@@ -1,4 +1,4 @@
-package com.capstone.bbiyong.twitter.domain;
+package com.capstone.bbiyong.metro.domain;
 
 import com.capstone.bbiyong.common.domain.DateTimeEntity;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Twitter extends DateTimeEntity {
+public class Metro extends DateTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
@@ -26,7 +26,7 @@ public class Twitter extends DateTimeEntity {
     private LocalDateTime startDateTime;
 
     @Builder
-    public Twitter(Long tweetId, String text, LocalDateTime startDateTime) {
+    public Metro(Long tweetId, String text, LocalDateTime startDateTime) {
         this.tweetId = tweetId;
         this.text = text;
         this.startDateTime = startDateTime;
