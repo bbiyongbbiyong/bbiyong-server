@@ -1,4 +1,4 @@
-package com.capstone.bbiyong.data.Twitter.domain;
+package com.capstone.bbiyong.twitter.domain;
 
 import com.capstone.bbiyong.common.domain.DateTimeEntity;
 import lombok.Getter;
@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -13,14 +14,21 @@ import javax.persistence.*;
 public class Twitter extends DateTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "twitter_id", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
+    @Column(name = "tweet_id", nullable = false)
+    private Long tweetId;
     @Column(nullable = false)
     private String text;
 
+    @Column(nullable = false)
+    private LocalDateTime startDateTime;
+
     @Builder
-    public Twitter(String text) {
+    public Twitter(Long tweetId, String text, LocalDateTime startDateTime) {
+        this.tweetId = tweetId;
         this.text = text;
+        this.startDateTime = startDateTime;
     }
 }
