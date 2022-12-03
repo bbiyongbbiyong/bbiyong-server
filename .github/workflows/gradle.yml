@@ -42,6 +42,7 @@ jobs:
         app.twitterAccessTokenSecret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
         app.twitterApiKey: ${{ secrets.TWITTER_API_KEY }}
         app.twitterApiSecretKey: ${{ secrets.TWITTER_API_SECRET_KEY }}
+        app.emergency-message-key: $${{ secrets.EMERGENCY_MESSAGE_KEY }}
 
     - name: Run chmod to make gradlew executable
       run: chmod +x ./gradlew
