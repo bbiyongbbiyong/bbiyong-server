@@ -1,7 +1,7 @@
 package com.capstone.bbiyong.openapi;
 
 import com.capstone.bbiyong.metro.domain.Metro;
-import com.capstone.bbiyong.metro.repository.MetroRepository;
+import com.capstone.bbiyong.metro.service.MetroService;
 import io.github.redouane59.twitter.TwitterClient;
 import io.github.redouane59.twitter.dto.endpoints.AdditionalParameters;
 import io.github.redouane59.twitter.dto.tweet.TweetList;
@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class MetroOpenAPI {
 
-        private final MetroRepository metroRepository;
+        private final MetroService metroService;
 
         @Value("${app.twitterAccessToken}")
         private String ACCESS_TOKEN;
@@ -34,8 +34,6 @@ public class MetroOpenAPI {
         @Value("${app.twitterApiSecretKey}")
         private String API_SECRET_KEY;
 
-        long lastTweet = 1598502485769216000L;
-
         // 트위터 등록정보
         private final TwitterClient twitterClient = new TwitterClient(TwitterCredentials.builder()
                 .accessToken("1589104619552022528-n3nCNNaegfh1L0PJDMC8PPnb06ktfC")
@@ -46,7 +44,7 @@ public class MetroOpenAPI {
 
         public void callOpenAPI() {
                 LocalDateTime endLocalDateTime = LocalDateTime.now();
-                LocalDateTime startLocalDateTime = endLocalDateTime.minusDays(7);
+                LocalDateTime startLocalDateTime = endLocalDateTime.minusDays(3);
                 // 파라메터 설정
                 AdditionalParameters additionalParameters = AdditionalParameters.builder()
                         .startTime(startLocalDateTime)
@@ -61,20 +59,17 @@ public class MetroOpenAPI {
 
                         String strId = tweet.getId();
                         long tweetId = Long.parseLong(strId);
-                        if (lastTweet < tweetId) {
-                                lastTweet = tweetId;
-                               // System.out.println(lastTweet);
-                                String text = tweet.getText();
-                                String result = processText(text);
-                                LocalDateTime date = tweet.getCreatedAt();
+                        String text = tweet.getText();
+                        String result = processText(text);
+                        LocalDateTime date = tweet.getCreatedAt();
 
-                                Metro metro = Metro.builder()
-                                        .tweetId(tweetId)
-                                        .text(result)
-                                        .startDateTime(date)
-                                        .build();
-                                metroRepository.save(metro);
-                        }
+                        Metro metro = Metro.builder()
+                                .tweetId(tweetId)
+                                .text(result)
+                                .startDateTime(date)
+                                .build();
+
+                        metroService.addMetro(metro);
                 }
         }
 

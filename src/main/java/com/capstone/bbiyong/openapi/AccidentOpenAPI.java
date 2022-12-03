@@ -1,7 +1,7 @@
 package com.capstone.bbiyong.openapi;
 
 import com.capstone.bbiyong.accident.domain.Accident;
-import com.capstone.bbiyong.accident.repository.AccidentRepository;
+import com.capstone.bbiyong.accident.service.AccidentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
@@ -28,7 +28,7 @@ import static java.net.URLEncoder.encode;
 @RequiredArgsConstructor
 public class AccidentOpenAPI implements OpenAPI {
 
-    private final AccidentRepository accidentRepository;
+    private final AccidentService accidentService;
 
     @Value("${app.seoul-openapi-key}")
     private String SEOUL_OPENAPI_KEY;
@@ -38,8 +38,6 @@ public class AccidentOpenAPI implements OpenAPI {
     private static final String SERVICE_NAME = "AccInfo";
     private static final String START_LOCATION = "1"; /*요청시작위치*/
     private static final String END_LOCATION = "15"; /*요청종료위치*/
-
-    Integer lastAccident = 889672;
 
     @Override
     public void call() throws IOException, ParseException {
@@ -100,33 +98,30 @@ public class AccidentOpenAPI implements OpenAPI {
             jsonObject = (JSONObject) jsonArray.get(i);
 
             Integer accId = (Integer) jsonObject.get("acc_id"); /*돌발 아이디*/
-            if (lastAccident < accId) {
-                lastAccident = accId;
-                Integer intStartDate = (Integer) jsonObject.get("occr_date"); /*발생 일자*/
-                int intStartTime = jsonObject.getInt("occr_time"); /*발생 시각*/
-                Integer intEndDate = (Integer) jsonObject.get("exp_clr_date"); /*종료 일자*/
-                int intEndTime = jsonObject.getInt("exp_clr_time"); /*종료 시각*/
-                String accidentType = (String) jsonObject.get("acc_type"); /*공사인지 사고인지 구별*/
-                BigDecimal xMap = (BigDecimal) jsonObject.get("grs80tm_x"); /*X 좌표*/
-                BigDecimal yMap = (BigDecimal) jsonObject.get("grs80tm_y"); /*Y 좌표*/
-                String accidentInfo = ((String) jsonObject.get("acc_info")).replace("\r", "\n"); /*상세 정보*/
+            Integer intStartDate = (Integer) jsonObject.get("occr_date"); /*발생 일자*/
+            int intStartTime = jsonObject.getInt("occr_time"); /*발생 시각*/
+            Integer intEndDate = (Integer) jsonObject.get("exp_clr_date"); /*종료 일자*/
+            int intEndTime = jsonObject.getInt("exp_clr_time"); /*종료 시각*/
+            String accidentType = (String) jsonObject.get("acc_type"); /*공사인지 사고인지 구별*/
+            BigDecimal xMap = jsonObject.getBigDecimal("grs80tm_x"); /*X 좌표*/
+            BigDecimal yMap = jsonObject.getBigDecimal("grs80tm_y"); /*Y 좌표*/
+            String accidentInfo = ((String) jsonObject.get("acc_info")).replace("\r", "\n"); /*상세 정보*/
 
 
-                Date startDate = parseDateFormat(intStartDate, intStartTime);
-                Date endDate = parseDateFormat(intEndDate, intEndTime);
+            Date startDate = parseDateFormat(intStartDate, intStartTime);
+            Date endDate = parseDateFormat(intEndDate, intEndTime);
 
-                Accident accident = Accident.builder()
-                        .accId(accId)
-                        .startDate(startDate)
-                        .endDate(endDate)
-                        .accidentType(accidentType)
-                        .accidentInfo(accidentInfo)
-                        .xMap(String.valueOf(xMap))
-                        .yMap(String.valueOf(yMap))
-                        .build();
+            Accident accident = Accident.builder()
+                    .accId(accId)
+                    .startDate(startDate)
+                    .endDate(endDate)
+                    .accidentType(accidentType)
+                    .accidentInfo(accidentInfo)
+                    .xMap(String.valueOf(xMap))
+                    .yMap(String.valueOf(yMap))
+                    .build();
 
-                accidentRepository.save(accident);
-            }
+            accidentService.addAccident(accident);
         }
     }
 
