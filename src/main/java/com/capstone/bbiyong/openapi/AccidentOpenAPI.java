@@ -1,7 +1,7 @@
 package com.capstone.bbiyong.openapi;
 
 import com.capstone.bbiyong.accident.domain.Accident;
-import com.capstone.bbiyong.accident.repository.AccidentRepository;
+import com.capstone.bbiyong.accident.service.AccidentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
@@ -18,6 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import static java.net.URLEncoder.encode;
@@ -27,7 +28,7 @@ import static java.net.URLEncoder.encode;
 @RequiredArgsConstructor
 public class AccidentOpenAPI implements OpenAPI {
 
-    private final AccidentRepository accidentRepository;
+    private final AccidentService accidentService;
 
     @Value("${app.seoul-openapi-key}")
     private String SEOUL_OPENAPI_KEY;
@@ -36,7 +37,7 @@ public class AccidentOpenAPI implements OpenAPI {
     private static final String REQUEST_FILE_TYPE = "xml";
     private static final String SERVICE_NAME = "AccInfo";
     private static final String START_LOCATION = "1"; /*요청시작위치*/
-    private static final String END_LOCATION = "5"; /*요청종료위치*/
+    private static final String END_LOCATION = "15"; /*요청종료위치*/
 
     @Override
     public void call() throws IOException, ParseException {
@@ -73,7 +74,7 @@ public class AccidentOpenAPI implements OpenAPI {
         rd.close();
         conn.disconnect();
 
-        log.info("response(XML): {}", response);
+        //log.info("response(XML): {}", response);
         return response.toString();
     }
 
@@ -84,7 +85,7 @@ public class AccidentOpenAPI implements OpenAPI {
         JSONObject jsonObject = (JSONObject) xml2JsonObj.get(SERVICE_NAME);
         JSONArray jsonArray = (JSONArray) jsonObject.get("row");
 
-        log.info("response(JSON): {}", jsonArray);
+        //log.info("response(JSON): {}", jsonArray);
         return jsonArray;
     }
 
@@ -98,14 +99,17 @@ public class AccidentOpenAPI implements OpenAPI {
 
             Integer accId = (Integer) jsonObject.get("acc_id"); /*돌발 아이디*/
             Integer intStartDate = (Integer) jsonObject.get("occr_date"); /*발생 일자*/
+            int intStartTime = jsonObject.getInt("occr_time"); /*발생 시각*/
             Integer intEndDate = (Integer) jsonObject.get("exp_clr_date"); /*종료 일자*/
+            int intEndTime = jsonObject.getInt("exp_clr_time"); /*종료 시각*/
             String accidentType = (String) jsonObject.get("acc_type"); /*공사인지 사고인지 구별*/
-            BigDecimal xMap = (BigDecimal) jsonObject.get("grs80tm_x"); /*X 좌표*/
-            BigDecimal yMap = (BigDecimal) jsonObject.get("grs80tm_y"); /*Y 좌표*/
+            BigDecimal xMap = jsonObject.getBigDecimal("grs80tm_x"); /*X 좌표*/
+            BigDecimal yMap = jsonObject.getBigDecimal("grs80tm_y"); /*Y 좌표*/
             String accidentInfo = ((String) jsonObject.get("acc_info")).replace("\r", "\n"); /*상세 정보*/
 
-            Date startDate = parseDateFormat(intStartDate);
-            Date endDate = parseDateFormat(intEndDate);
+
+            Date startDate = parseDateFormat(intStartDate, intStartTime);
+            Date endDate = parseDateFormat(intEndDate, intEndTime);
 
             Accident accident = Accident.builder()
                     .accId(accId)
@@ -117,15 +121,32 @@ public class AccidentOpenAPI implements OpenAPI {
                     .yMap(String.valueOf(yMap))
                     .build();
 
-            accidentRepository.save(accident);
+            accidentService.addAccident(accident);
         }
     }
 
-    // Integer "yyyymmdd" -> Date class 변환
+    // Integer "yyyyMMdd" -> Date class 변환
     @Override
-    public Date parseDateFormat(Object intDate) throws ParseException {
-        SimpleDateFormat fm = new SimpleDateFormat("yyyymmdd");
-        return fm.parse(String.valueOf(intDate));
-    }
+    public Date parseDateFormat(Object intDate, int intTime) throws ParseException {
+        String strTime = Integer.toString(intTime);
+        String strHour, strMin;
 
+        if (strTime.length() == 3 || strTime.length() == 5) {
+            strHour = strTime.substring(0, 1);
+            strMin = strTime.substring(1, 3);
+        }
+        else {
+            strHour = strTime.substring(0, 2);
+            strMin = strTime.substring(2, 4);
+        }
+
+        SimpleDateFormat fm = new SimpleDateFormat("yyyyMMdd");
+        Calendar cal = Calendar.getInstance();
+        Date tempDate = fm.parse(String.valueOf(intDate));
+        cal.setTime(tempDate);
+        cal.add(Calendar.HOUR, Integer.parseInt(strHour));
+        cal.add(Calendar.MINUTE, Integer.parseInt(strMin));
+
+        return cal.getTime();
+    }
 }

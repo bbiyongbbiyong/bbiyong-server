@@ -1,2 +1,7 @@
 app:
+  twitterAccessToken: ${TWITTER_ACCESS_TOKEN}
+  twitterAccessTokenSecret: ${TWITTER_ACCESS_TOKEN_SECRET}
+  twitterApiKey: ${TWITTER_API_KEY}
+  twitterApiSecretKey: ${TWITTER_API_SECRET_KEY}
   seoul-openapi-key: ${SEOUL_OPENAPI_KEY}
+  emergency-message-key: ${EMERGENCY_MESSAGE_KEY}

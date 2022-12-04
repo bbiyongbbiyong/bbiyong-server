@@ -1,5 +1,6 @@
 package com.capstone.bbiyong.accident.domain;
 
+import com.capstone.bbiyong.common.domain.DateTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Accident {
+public class Accident extends DateTimeEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
