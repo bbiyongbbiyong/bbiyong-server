@@ -64,7 +64,7 @@ public class EmerMsgOpenAPI {
         String createDate = RequestDate();
 
         StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1741000/DisasterMsg4/getDisasterMsg2List") /*URL*/
-            .append("?" + encode("serviceKey","UTF-8") + "=" + encode(EMERGENCY_MESSAGE_KEY, "UTF-8")) /*Service Key*/
+            .append("?" + encode("serviceKey","UTF-8") + "=" + EMERGENCY_MESSAGE_KEY) /*Service Key*/
             .append("&" + encode("pageNo","UTF-8") + "=" + encode("1", "UTF-8")) /*페이지번호*/
             .append("&" + encode("numOfRows","UTF-8") + "=" + encode("10", "UTF-8")) /*한 페이지 결과 수*/
             .append("&" + encode("type","UTF-8") + "=" + encode("json", "UTF-8")) /*호출문서 형식*/
