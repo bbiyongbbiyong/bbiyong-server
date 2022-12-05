@@ -107,7 +107,6 @@ public class AccidentOpenAPI implements OpenAPI {
             BigDecimal yMap = jsonObject.getBigDecimal("grs80tm_y"); /*Y 좌표*/
             String accidentInfo = ((String) jsonObject.get("acc_info")).replace("\r", "\n"); /*상세 정보*/
 
-
             Date startDate = parseDateFormat(intStartDate, intStartTime);
             Date endDate = parseDateFormat(intEndDate, intEndTime);
 
@@ -134,6 +133,10 @@ public class AccidentOpenAPI implements OpenAPI {
         if (strTime.length() == 3 || strTime.length() == 5) {
             strHour = strTime.substring(0, 1);
             strMin = strTime.substring(1, 3);
+        }
+        else if (strTime.length() == 1) {
+            strHour = "0";
+            strMin = "0";
         }
         else {
             strHour = strTime.substring(0, 2);
