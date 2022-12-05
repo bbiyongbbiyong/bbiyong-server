@@ -72,7 +72,7 @@ public class EmerMsgOpenAPI {
             .append("&" + encode("pageNo","UTF-8") + "=" + encode("1", "UTF-8")) /*페이지번호*/
             .append("&" + encode("numOfRows","UTF-8") + "=" + encode("10", "UTF-8")) /*한 페이지 결과 수*/
             .append("&" + encode("type","UTF-8") + "=" + encode("json", "UTF-8")) /*호출문서 형식*/
-            .append("&" + encode("create_date","UTF-8") + "=" + encode("2022/12/01 00:00:00", "UTF-8")) /*생성일시(포함하여 큰 데이터 조회)*/
+            .append("&" + encode("create_date","UTF-8") + "=" + encode(createDate, "UTF-8")) /*생성일시(포함하여 큰 데이터 조회)*/
             .append("&" + encode("location_name","UTF-8") + "=" + encode("서울특별시", "UTF-8")); /*수신지역 이름*/
 
         URL url = new URL(urlBuilder.toString());
