@@ -25,10 +25,14 @@ public class Metro extends DateTimeEntity {
     @Column(nullable = false)
     private LocalDateTime startDateTime;
 
+    @Column(nullable = false)
+    private LocalDateTime endDateTime;
+
     @Builder
-    public Metro(Long tweetId, String text, LocalDateTime startDateTime) {
+    public Metro(Long tweetId, String text, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         this.tweetId = tweetId;
         this.text = text;
         this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 }
