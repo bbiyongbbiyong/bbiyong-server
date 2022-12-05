@@ -2,6 +2,7 @@ package com.capstone.bbiyong.accident.controller;
 
 import com.capstone.bbiyong.accident.service.AccidentService;
 import com.capstone.bbiyong.openapi.OpenAPI;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -27,8 +28,8 @@ public class AccidentController {
     @Scheduled(fixedDelay = 60000)  // 1분 간격
     @GetMapping("")
     @ResponseStatus(OK)
+    @Operation(summary = "사건/사고 및 시위 API 자동 호출", description = "1분마다 사건/사고 및 시위 정보를 업데이트하여 DB에 저장합니다")
     public void callAccidentOpenAPI() throws IOException, ParseException {
         accidentOpenAPI.call();
     }
-
 }

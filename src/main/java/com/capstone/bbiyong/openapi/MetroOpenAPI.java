@@ -44,7 +44,7 @@ public class MetroOpenAPI {
 
         public void callOpenAPI() {
                 LocalDateTime endLocalDateTime = LocalDateTime.now();
-                LocalDateTime startLocalDateTime = endLocalDateTime.minusDays(3);
+                LocalDateTime startLocalDateTime = endLocalDateTime.minusDays(7);
                 // 파라메터 설정
                 AdditionalParameters additionalParameters = AdditionalParameters.builder()
                         .startTime(startLocalDateTime)
@@ -61,12 +61,14 @@ public class MetroOpenAPI {
                         long tweetId = Long.parseLong(strId);
                         String text = tweet.getText();
                         String result = processText(text);
-                        LocalDateTime date = tweet.getCreatedAt();
+                        LocalDateTime startDateTime = tweet.getCreatedAt();
+                        LocalDateTime endDateTime = startDateTime.plusDays(1);
 
                         Metro metro = Metro.builder()
                                 .tweetId(tweetId)
                                 .text(result)
-                                .startDateTime(date)
+                                .startDateTime(startDateTime)
+                                .endDateTime(endDateTime)
                                 .build();
 
                         metroService.addMetro(metro);

@@ -30,14 +30,18 @@ public class EmerMsg extends DateTimeEntity {
     private String msg;
 
     @Column(nullable = false)
-    private Date date;
+    private Date startDateTime;
+
+    @Column(nullable = false)
+    private Date endDateTime;
 
     @Builder
-    public EmerMsg(Integer locationId, String locationName, Long emerMsgId, String msg, Date date) {
+    public EmerMsg(Integer locationId, String locationName, Long emerMsgId, String msg, Date startDateTime, Date endDateTime) {
         this.locationId = locationId;
         this.locationName = locationName;
         this.emerMsgId = emerMsgId;
         this.msg = msg;
-        this.date = date;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 }

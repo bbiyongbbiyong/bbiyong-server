@@ -44,7 +44,10 @@ public class EmerMsgOpenAPI {
             String locationId = (String) jsonObject.get("location_id");
             String locationName = (String) jsonObject.get("location_name");
             String msg = (String) jsonObject.get("msg");
-            String date = (String) jsonObject.get("create_date");
+            String strStartDateTime = (String) jsonObject.get("create_date");
+
+            Date startDateTime = StringToDate(strStartDateTime);
+            Date endDateTime = getEndDateTime(startDateTime);
 
             if (!locationId.contains(",")) {
                 EmerMsg emerMsg = EmerMsg.builder()
@@ -52,7 +55,8 @@ public class EmerMsgOpenAPI {
                         .locationName(locationName)
                         .emerMsgId(Long.valueOf(msgId))
                         .msg(msg)
-                        .date(StringToDate(date))
+                        .startDateTime(startDateTime)
+                        .endDateTime(endDateTime)
                         .build();
 
                 emerMsgService.addEmerMsg(emerMsg);
@@ -68,7 +72,7 @@ public class EmerMsgOpenAPI {
             .append("&" + encode("pageNo","UTF-8") + "=" + encode("1", "UTF-8")) /*페이지번호*/
             .append("&" + encode("numOfRows","UTF-8") + "=" + encode("10", "UTF-8")) /*한 페이지 결과 수*/
             .append("&" + encode("type","UTF-8") + "=" + encode("json", "UTF-8")) /*호출문서 형식*/
-            .append("&" + encode("create_date","UTF-8") + "=" + encode(createDate, "UTF-8")) /*생성일시(포함하여 큰 데이터 조회)*/
+            .append("&" + encode("create_date","UTF-8") + "=" + encode("2022/12/01 00:00:00", "UTF-8")) /*생성일시(포함하여 큰 데이터 조회)*/
             .append("&" + encode("location_name","UTF-8") + "=" + encode("서울특별시", "UTF-8")); /*수신지역 이름*/
 
         URL url = new URL(urlBuilder.toString());
@@ -118,5 +122,12 @@ public class EmerMsgOpenAPI {
         SimpleDateFormat transFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
         return transFormat.format(date);
+    }
+
+    public Date getEndDateTime (Date startDateTime) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(startDateTime);
+        cal.add(Calendar.DATE, 1);
+        return cal.getTime();
     }
 }
