@@ -15,30 +15,30 @@ import java.util.Date;
 public class EmerMsg extends DateTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
+    @Column(name = "emer_msg_id", nullable = false)
     private Long id;
 
-    @Column(name = "emer_msg_id", nullable = false)
-    private Long emerMsgId;
+    @Column(nullable = false)
+    private Long openapiId;
 
     @Column(nullable = false)
-    private String msg;
+    private String message;
 
     @Column(nullable = false)
-    private Date startDateTime;
+    private Date startDate;
 
     @Column(nullable = false)
-    private Date endDateTime;
+    private Date endDate;
 
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
 
     @Builder
-    public EmerMsg(Long emerMsgId, String msg, Date startDateTime, Date endDateTime) {
-        this.emerMsgId = emerMsgId;
-        this.msg = msg;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+    public EmerMsg(Long openapiId, String message, Date startDate, Date endDate) {
+        this.openapiId = openapiId;
+        this.message = message;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 }

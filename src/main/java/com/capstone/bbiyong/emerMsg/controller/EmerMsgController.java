@@ -4,6 +4,7 @@ import com.capstone.bbiyong.emerMsg.dto.EmerMsgResponseDTO;
 import com.capstone.bbiyong.emerMsg.service.EmerMsgService;
 import com.capstone.bbiyong.openapi.EmerMsgOpenAPI;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.parser.ParseException;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -18,6 +19,7 @@ import static org.springframework.http.HttpStatus.OK;
 @EnableScheduling
 @RestController
 @RequestMapping("emerMsg")
+@Tag(name = "✉️Emergency Message", description = "재난 문자 API")
 @RequiredArgsConstructor
 public class EmerMsgController {
     private final EmerMsgOpenAPI emerMsgOpenAPI;
@@ -33,7 +35,7 @@ public class EmerMsgController {
 
     @GetMapping("/{locationId}")
     @Operation(summary = "지역 별 재난문자 조회", description = "지역 별 발송된 재난문자를 조회합니다")
-    public List<EmerMsgResponseDTO> getEmerMsgs(@PathVariable("locationId") Integer locationId) {
+    public List<EmerMsgResponseDTO> getEmerMsgs(@PathVariable("locationId") Long locationId) {
         return emerMsgService.getEmerMsg(locationId);
     }
 }
