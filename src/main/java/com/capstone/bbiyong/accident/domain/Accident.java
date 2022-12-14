@@ -1,14 +1,14 @@
 package com.capstone.bbiyong.accident.domain;
 
 import com.capstone.bbiyong.common.domain.DateTimeEntity;
+import com.capstone.bbiyong.emerMsg.domain.EmerMsg;
+import com.capstone.bbiyong.location.domain.Location;
+import com.capstone.bbiyong.metro.domain.Metro;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import java.util.Date;
 
@@ -25,15 +25,16 @@ public class Accident extends DateTimeEntity {
     private Long id;
 
     private Integer accId;
-
+    private String accidentType;
+    private String accidentInfo;
+    private String xMap;
+    private String yMap;
     private Date startDate;
     private Date endDate;
 
-    private String accidentType;
-    private String accidentInfo;
-
-    private String xMap;
-    private String yMap;
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
 
     @Builder
     public Accident(Integer accId, Date startDate, Date endDate, String accidentType, String accidentInfo, String xMap, String yMap) {

@@ -1,6 +1,7 @@
 package com.capstone.bbiyong.metro.domain;
 
 import com.capstone.bbiyong.common.domain.DateTimeEntity;
+import com.capstone.bbiyong.location.domain.Location;
 import lombok.Getter;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,10 @@ public class Metro extends DateTimeEntity {
 
     @Column(nullable = false)
     private LocalDateTime endDateTime;
+
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
 
     @Builder
     public Metro(Long tweetId, String text, LocalDateTime startDateTime, LocalDateTime endDateTime) {
