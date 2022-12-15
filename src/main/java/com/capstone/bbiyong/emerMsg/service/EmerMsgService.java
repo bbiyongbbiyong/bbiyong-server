@@ -3,6 +3,8 @@ package com.capstone.bbiyong.emerMsg.service;
 import com.capstone.bbiyong.emerMsg.domain.EmerMsg;
 import com.capstone.bbiyong.emerMsg.dto.EmerMsgResponseDTO;
 import com.capstone.bbiyong.emerMsg.respository.EmerMsgRepository;
+import com.capstone.bbiyong.location.domain.Location;
+import com.capstone.bbiyong.location.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,19 +19,22 @@ import java.util.stream.Collectors;
 public class EmerMsgService {
 
     private final EmerMsgRepository emerMsgRepository;
+    private final LocationService locationService;
 
     @Transactional
     public void addEmerMsg(EmerMsg newEmerMsg) {
-        Long msgId = newEmerMsg.getEmerMsgId();
-        Optional<EmerMsg> emerMsg = emerMsgRepository.findByEmerMsgId(msgId);
+        Long openapiId = newEmerMsg.getOpenapiId();
+        Optional<EmerMsg> emerMsg = emerMsgRepository.findByOpenapiId(openapiId);
         if (emerMsg.isEmpty())
             emerMsgRepository.save(newEmerMsg);
     }
 
     @Transactional
-    public List<EmerMsgResponseDTO> getEmerMsg(Integer locationId) {
+    public List<EmerMsgResponseDTO> getEmerMsg(Long locationId) {
+        Location location = locationService.findLocation(locationId);
         Date now = new Date();
-        return emerMsgRepository.findAllEmerMsgByLocationId(locationId, now).stream()
+
+        return emerMsgRepository.findAllEmerMsgByLocationAndDate(location, now).stream()
                 .map(EmerMsgResponseDTO::from)
                 .collect(Collectors.toList());
     }

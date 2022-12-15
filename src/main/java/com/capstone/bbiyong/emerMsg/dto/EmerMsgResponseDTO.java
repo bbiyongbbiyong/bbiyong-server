@@ -15,21 +15,27 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder(access = PRIVATE)
 public class EmerMsgResponseDTO {
 
+    private Long emerMsgId;
+
+    private Long locationId;
+
     private String locationName;
 
-    private String msg;
+    private String message;
     @JsonFormat(
             shape = JsonFormat.Shape.STRING,
             pattern = "yyyy.MM.dd HH:mm",
             locale = "Asia/Seoul"
     )
-    private Date startDateTime;
+    private Date startDate;
 
     public static EmerMsgResponseDTO from(EmerMsg emerMsg) {
         return EmerMsgResponseDTO.builder()
-                .locationName(emerMsg.getLocationName())
-                .msg(emerMsg.getMsg())
-                .startDateTime(emerMsg.getStartDateTime())
+                .emerMsgId(emerMsg.getId())
+                .locationId(emerMsg.getId())
+                .locationName(emerMsg.getLocation().getName())
+                .message(emerMsg.getMessage())
+                .startDate(emerMsg.getStartDate())
                 .build();
     }
 }

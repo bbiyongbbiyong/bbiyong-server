@@ -80,7 +80,7 @@ public class AccidentOpenAPI implements OpenAPI {
 
     // XML -> JSONArray or JSON -> JSONArray 바꿈
     @Override
-    public JSONArray getJsonArray(String response) throws IOException {
+    public JSONArray getJsonArray(String response) {
         JSONObject xml2JsonObj = XML.toJSONObject(response);
         JSONObject jsonObject = (JSONObject) xml2JsonObj.get(SERVICE_NAME);
         JSONArray jsonArray = (JSONArray) jsonObject.get("row");
@@ -90,28 +90,28 @@ public class AccidentOpenAPI implements OpenAPI {
     }
 
     @Override
-    public void parseAndSave(JSONArray jsonArray) throws IOException, ParseException {
+    public void parseAndSave(JSONArray jsonArray) throws ParseException {
 
         JSONObject jsonObject;
 
         for (int i = 0; i < jsonArray.length(); i++) {
             jsonObject = (JSONObject) jsonArray.get(i);
 
-            Integer accId = (Integer) jsonObject.get("acc_id"); /*돌발 아이디*/
+            Long openapiId = Long.valueOf((Integer) jsonObject.get("acc_id")); /*돌발 아이디*/
             Integer intStartDate = (Integer) jsonObject.get("occr_date"); /*발생 일자*/
             int intStartTime = jsonObject.getInt("occr_time"); /*발생 시각*/
             Integer intEndDate = (Integer) jsonObject.get("exp_clr_date"); /*종료 일자*/
             int intEndTime = jsonObject.getInt("exp_clr_time"); /*종료 시각*/
-            String accidentType = (String) jsonObject.get("acc_type"); /*공사인지 사고인지 구별*/
+            String accidentType = String.valueOf(jsonObject.get("acc_type")); /*공사인지 사고인지 구별*/
             BigDecimal xMap = jsonObject.getBigDecimal("grs80tm_x"); /*X 좌표*/
             BigDecimal yMap = jsonObject.getBigDecimal("grs80tm_y"); /*Y 좌표*/
-            String accidentInfo = ((String) jsonObject.get("acc_info")).replace("\r", "\n"); /*상세 정보*/
+            String accidentInfo = String.valueOf(jsonObject.get("acc_info")).replace("\r", "\n"); /*상세 정보*/
 
             Date startDate = parseDateFormat(intStartDate, intStartTime);
             Date endDate = parseDateFormat(intEndDate, intEndTime);
 
             Accident accident = Accident.builder()
-                    .accId(accId)
+                    .openapiId(openapiId)
                     .startDate(startDate)
                     .endDate(endDate)
                     .accidentType(accidentType)
@@ -125,8 +125,7 @@ public class AccidentOpenAPI implements OpenAPI {
     }
 
     // Integer "yyyyMMdd" -> Date class 변환
-    @Override
-    public Date parseDateFormat(Object intDate, int intTime) throws ParseException {
+    private Date parseDateFormat(Object intDate, int intTime) throws ParseException {
         String strTime = Integer.toString(intTime);
         String strHour, strMin;
 
