@@ -125,8 +125,7 @@ public class AccidentOpenAPI implements OpenAPI {
     }
 
     // Integer "yyyyMMdd" -> Date class 변환
-    @Override
-    public Date parseDateFormat(Object intDate, int intTime) throws ParseException {
+    private Date parseDateFormat(Object intDate, int intTime) throws ParseException {
         String strTime = Integer.toString(intTime);
         String strHour, strMin;
 

@@ -13,8 +13,6 @@ public interface OpenAPI {
 
     JSONArray getJsonArray(String response);
 
-    Object parseDateFormat(Object object, int time) throws ParseException;
-
     void parseAndSave(JSONArray jsonArray) throws ParseException;
 
 }
