@@ -86,12 +86,10 @@ public class EmerMsgOpenAPI implements OpenAPI {
     // XML -> JSONArray or JSON -> JSONArray 바꿈
     @Override
     public JSONArray getJsonArray(String response) {
-        log.info("response(XML): {}", response);
         JSONObject xml2JsonObj = XML.toJSONObject(response);
         JSONObject jsonObject = (JSONObject) xml2JsonObj.get(SERVICE_NAME);
         JSONArray jsonArray = (JSONArray) jsonObject.get("row");
 
-        log.info("response(JSON): {}", jsonArray);
         return jsonArray;
     }
 
@@ -114,9 +112,7 @@ public class EmerMsgOpenAPI implements OpenAPI {
             if (!locationId.contains(",")) {
                 Long id = Long.parseLong(locationId) - 135;
                 Optional<Location> OptLocation = locationRepository.findById(id);
-                log.info("Optional id : {}", id);
                 if (OptLocation.isPresent()) {
-                    log.info("isPresent()");
                     EmerMsg emerMsg = EmerMsg.builder()
                             .openapiId(Long.parseLong(openapiId))
                             .message(message)
@@ -131,11 +127,6 @@ public class EmerMsgOpenAPI implements OpenAPI {
         }
     }
 
-    @Override
-    public Object parseDateFormat(Object object, int time) throws ParseException {
-        return null;
-    }
-
     private Date StringToDate (String stringDate) throws ParseException {
         SimpleDateFormat fm = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = fm.parse(stringDate);
@@ -148,7 +139,6 @@ public class EmerMsgOpenAPI implements OpenAPI {
         cal.add(Calendar.DATE, -1);
         Date date = new Date(cal.getTimeInMillis());
         SimpleDateFormat transFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-
         return transFormat.format(date);
     }
 
