@@ -25,7 +25,7 @@ public class XYChangeOpenAPI {
     private String CHANGE_TO_ADDRESS_KEY;
     @Value("${app.tm-consumer-key}")
     private String TM_CONSUMER_KEY;
-    @Value("${tm-consumer-secret}")
+    @Value("${app.tm-consumer-secret}")
     private String TM_CONSUMER_SECRET;
     private static final String SRC_COORDINATE_CODE = "EPSG:5181";
     private static final String DST_COORDINATE_CODE = "EPSG:4326";
