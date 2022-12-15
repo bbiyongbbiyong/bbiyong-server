@@ -24,7 +24,7 @@ public class Accident extends DateTimeEntity {
     @Column(name = "accident_id")
     private Long id;
 
-    private Integer accId;
+    private Long openapiId;
     private String accidentType;
     private String accidentInfo;
     private String xMap;
@@ -37,13 +37,14 @@ public class Accident extends DateTimeEntity {
     private Location location;
 
     @Builder
-    public Accident(Integer accId, Date startDate, Date endDate, String accidentType, String accidentInfo, String xMap, String yMap) {
-        this.accId = accId;
+    public Accident(Long openapiId, Date startDate, Date endDate, String accidentType, String accidentInfo, String xMap, String yMap, Location location) {
+        this.openapiId = openapiId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.accidentType = accidentType;
         this.accidentInfo = accidentInfo;
         this.xMap = xMap;
         this.yMap = yMap;
+        this.location = location;
     }
 }
