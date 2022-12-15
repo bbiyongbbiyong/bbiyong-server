@@ -4,6 +4,7 @@ import com.capstone.bbiyong.metro.dto.MetroResponseDTO;
 import com.capstone.bbiyong.metro.service.MetroService;
 import com.capstone.bbiyong.openapi.MetroOpenAPI;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,8 +20,9 @@ import static org.springframework.http.HttpStatus.OK;
 
 @EnableScheduling
 @RestController
-@RequestMapping("twitter")
+@RequestMapping("metro")
 @RequiredArgsConstructor
+@Tag(name = "🚆 Metro", description = "지하철 지연 정보 API")
 public class MetroController {
 
     private final MetroOpenAPI metroOpenAPI;

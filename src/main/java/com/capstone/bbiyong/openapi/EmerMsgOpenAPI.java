@@ -5,7 +5,6 @@ import com.capstone.bbiyong.emerMsg.service.EmerMsgService;
 import com.capstone.bbiyong.location.domain.Location;
 import com.capstone.bbiyong.location.repository.LocationRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.XML;
@@ -25,7 +24,6 @@ import java.util.Optional;
 
 import static java.net.URLEncoder.encode;
 
-@Slf4j
 @Component
 @RequiredArgsConstructor
 public class EmerMsgOpenAPI implements OpenAPI {
