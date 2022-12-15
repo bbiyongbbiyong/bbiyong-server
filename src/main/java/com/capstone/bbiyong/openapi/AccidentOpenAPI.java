@@ -2,6 +2,7 @@ package com.capstone.bbiyong.openapi;
 
 import com.capstone.bbiyong.accident.domain.Accident;
 import com.capstone.bbiyong.accident.service.AccidentService;
+import com.capstone.bbiyong.location.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
@@ -39,8 +40,11 @@ public class AccidentOpenAPI implements OpenAPI {
     private static final String START_LOCATION = "1"; /*요청시작위치*/
     private static final String END_LOCATION = "15"; /*요청종료위치*/
 
+    private final XYChangeOpenAPI xyChangeOpenAPI;
+    private final LocationService locationService;
+
     @Override
-    public void call() throws IOException, ParseException {
+    public void call() throws IOException, ParseException, org.json.simple.parser.ParseException {
         String response = callOpenAPI();
         JSONArray jsonArray = getJsonArray(response);
         parseAndSave(jsonArray);
@@ -90,7 +94,7 @@ public class AccidentOpenAPI implements OpenAPI {
     }
 
     @Override
-    public void parseAndSave(JSONArray jsonArray) throws ParseException {
+    public void parseAndSave(JSONArray jsonArray) throws ParseException, IOException, org.json.simple.parser.ParseException {
 
         JSONObject jsonObject;
 
@@ -110,14 +114,15 @@ public class AccidentOpenAPI implements OpenAPI {
             Date startDate = parseDateFormat(intStartDate, intStartTime);
             Date endDate = parseDateFormat(intEndDate, intEndTime);
 
+            String locationName = xyChangeOpenAPI.XYChangeToAddress(xMap, yMap);
+
             Accident accident = Accident.builder()
                     .openapiId(openapiId)
                     .startDate(startDate)
                     .endDate(endDate)
                     .accidentType(accidentType)
                     .accidentInfo(accidentInfo)
-                    .xMap(String.valueOf(xMap))
-                    .yMap(String.valueOf(yMap))
+                    .location(locationService.findLocationByName(locationName))
                     .build();
 
             accidentService.addAccident(accident);

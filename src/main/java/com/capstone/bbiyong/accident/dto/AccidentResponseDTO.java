@@ -1,6 +1,7 @@
 package com.capstone.bbiyong.accident.dto;
 
 import com.capstone.bbiyong.accident.domain.Accident;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,26 +15,24 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder(access = PRIVATE)
 public class AccidentResponseDTO {
 
-    private Long accidentId;
-
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING,
+            pattern = "yyyy.MM.dd HH:mm",
+            locale = "Asia/Seoul"
+    )
     private Date startDate;
-    private Date endDate;
 
     private String accidentType;
     private String accidentInfo;
 
-    private String xMap;
-    private String yMap;
+    private Long locationId;
 
     public static AccidentResponseDTO from(Accident accident) {
         return AccidentResponseDTO.builder()
-                .accidentId(accident.getId())
                 .startDate(accident.getStartDate())
-                .endDate(accident.getEndDate())
                 .accidentType(accident.getAccidentType())
                 .accidentInfo(accident.getAccidentInfo())
-                .xMap(accident.getXMap())
-                .yMap(accident.getYMap())
+                .locationId(accident.getLocation().getId())
                 .build();
     }
 

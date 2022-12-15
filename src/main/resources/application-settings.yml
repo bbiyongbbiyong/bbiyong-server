@@ -5,3 +5,6 @@ app:
   twitterApiSecretKey: ${TWITTER_API_SECRET_KEY}
   seoul-openapi-key: ${SEOUL_OPENAPI_KEY}
   emergency-message-key: ${EMERGENCY_MESSAGE_KEY}
+  change-to-address-key: ${CHANGE_TO_ADDRESS_KEY}
+  tm-consumer-key: ${TM_CONSUMER_KEY}
+  tm-consumer-secret: ${TM_CONSUMER_SECRET}
