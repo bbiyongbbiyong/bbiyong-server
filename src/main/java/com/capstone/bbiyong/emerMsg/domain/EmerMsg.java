@@ -35,10 +35,11 @@ public class EmerMsg extends DateTimeEntity {
     private Location location;
 
     @Builder
-    public EmerMsg(Long openapiId, String message, Date startDate, Date endDate) {
+    public EmerMsg(Long openapiId, String message, Date startDate, Date endDate, Location location) {
         this.openapiId = openapiId;
         this.message = message;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.location = location;
     }
 }

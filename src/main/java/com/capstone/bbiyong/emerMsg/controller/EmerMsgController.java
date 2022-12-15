@@ -6,12 +6,12 @@ import com.capstone.bbiyong.openapi.EmerMsgOpenAPI;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.json.simple.parser.ParseException;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -29,8 +29,8 @@ public class EmerMsgController {
     @GetMapping("")
     @ResponseStatus(OK)
     @Operation(summary = "재난문자 API 자동 호출", description = "1분마다 재난문자 정보를 업데이트하여 DB에 저장합니다")
-    public void callEmerMsgOpenAPI() throws IOException, ParseException, java.text.ParseException {
-        emerMsgOpenAPI.parseAndSave();
+    public void callEmerMsgOpenAPI() throws IOException, ParseException {
+        emerMsgOpenAPI.call();
     }
 
     @GetMapping("/{locationId}")

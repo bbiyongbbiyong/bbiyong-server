@@ -80,7 +80,7 @@ public class AccidentOpenAPI implements OpenAPI {
 
     // XML -> JSONArray or JSON -> JSONArray 바꿈
     @Override
-    public JSONArray getJsonArray(String response) throws IOException {
+    public JSONArray getJsonArray(String response) {
         JSONObject xml2JsonObj = XML.toJSONObject(response);
         JSONObject jsonObject = (JSONObject) xml2JsonObj.get(SERVICE_NAME);
         JSONArray jsonArray = (JSONArray) jsonObject.get("row");
@@ -90,7 +90,7 @@ public class AccidentOpenAPI implements OpenAPI {
     }
 
     @Override
-    public void parseAndSave(JSONArray jsonArray) throws IOException, ParseException {
+    public void parseAndSave(JSONArray jsonArray) throws ParseException {
 
         JSONObject jsonObject;
 

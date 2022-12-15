@@ -11,10 +11,10 @@ public interface OpenAPI {
 
     String callOpenAPI() throws IOException;
 
-    JSONArray getJsonArray(String response) throws IOException;
+    JSONArray getJsonArray(String response);
 
     Object parseDateFormat(Object object, int time) throws ParseException;
 
-    void parseAndSave(JSONArray jsonArray) throws IOException, ParseException;
+    void parseAndSave(JSONArray jsonArray) throws ParseException;
 
 }

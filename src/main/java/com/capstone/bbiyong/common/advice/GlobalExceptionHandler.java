@@ -55,13 +55,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
-    @ExceptionHandler(AuthenticationException.class)
-    protected ResponseEntity<BasicResponse> handleAuthenticationException(AuthenticationException e) {
-        log.warn(e.getMessage(), e);
-        BasicResponse response = BasicResponse.of(ErrorCode.AUTH_ERROR);
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }
-
     @ExceptionHandler(IllegalStateException.class)
     protected ResponseEntity<BasicResponse> handleIllegalStateException(IllegalStateException e) {
         log.error(e.getMessage(), e);
