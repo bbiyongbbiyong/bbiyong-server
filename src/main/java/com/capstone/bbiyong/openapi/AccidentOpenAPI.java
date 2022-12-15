@@ -97,7 +97,7 @@ public class AccidentOpenAPI implements OpenAPI {
         for (int i = 0; i < jsonArray.length(); i++) {
             jsonObject = (JSONObject) jsonArray.get(i);
 
-            Long openapiId = (Long) jsonObject.get("acc_id"); /*돌발 아이디*/
+            Long openapiId = Long.valueOf((Integer) jsonObject.get("acc_id")); /*돌발 아이디*/
             Integer intStartDate = (Integer) jsonObject.get("occr_date"); /*발생 일자*/
             int intStartTime = jsonObject.getInt("occr_time"); /*발생 시각*/
             Integer intEndDate = (Integer) jsonObject.get("exp_clr_date"); /*종료 일자*/
