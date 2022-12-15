@@ -18,4 +18,8 @@ public class LocationService {
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.LOCATION_NOT_FOUND));
     }
 
+    public Location findLocationByName(String name) {
+        return locationRepository.findByName(name);
+    }
+
 }

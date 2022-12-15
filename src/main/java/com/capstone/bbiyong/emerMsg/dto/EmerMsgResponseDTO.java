@@ -15,8 +15,6 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder(access = PRIVATE)
 public class EmerMsgResponseDTO {
 
-    private Long emerMsgId;
-
     private Long locationId;
 
     private String locationName;
@@ -31,8 +29,7 @@ public class EmerMsgResponseDTO {
 
     public static EmerMsgResponseDTO from(EmerMsg emerMsg) {
         return EmerMsgResponseDTO.builder()
-                .emerMsgId(emerMsg.getId())
-                .locationId(emerMsg.getId())
+                .locationId(emerMsg.getLocation().getId())
                 .locationName(emerMsg.getLocation().getName())
                 .message(emerMsg.getMessage())
                 .startDate(emerMsg.getStartDate())
