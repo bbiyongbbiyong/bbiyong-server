@@ -107,7 +107,8 @@ public class EmerMsgOpenAPI implements OpenAPI {
             Date startDate = StringToDate(strStartDate);
             Date endDate = getEndDate(startDate);
 
-            if (!locationId.contains(",")) {
+            if (!(locationId.contains(",") || message.contains("신규") || message.contains("확진") || message.contains("접종") || message.contains("이상") || message.contains("기준")
+                    || message.contains("2가") || message.contains("백신") || message.contains("예약") || message.contains("코로나") || message.contains("실종") || message.contains("배회") || message.contains("목격"))) {
                 Long id = Long.parseLong(locationId) - 135;
                 Optional<Location> OptLocation = locationRepository.findById(id);
                 if (OptLocation.isPresent()) {
@@ -143,7 +144,7 @@ public class EmerMsgOpenAPI implements OpenAPI {
     public Date getEndDate (Date startDateTime) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(startDateTime);
-        cal.add(Calendar.DATE, 1);
+        cal.add(Calendar.DATE, 2);
         return cal.getTime();
     }
 }
