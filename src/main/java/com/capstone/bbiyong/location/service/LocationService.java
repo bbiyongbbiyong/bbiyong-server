@@ -60,10 +60,10 @@ public class LocationService {
         Long emerMsg1 = countEmerMsgsByLocationId1();
         Long metro = countMetros();
 
-        for (Long i = 1l; i <= 25l; i++) { // HashMap 초기화
+        for (Long i = 1l; i <= 26l; i++) { // HashMap 초기화
             totalMap.put(i, 0l);
         }
-        for (Long i = 2l; i <= 25l; i++) {
+        for (Long i = 2l; i <= 26l; i++) {
             totalMap.put(i, countAccidents(i) + countEmerMsgs(i) +emerMsg1 + metro);
             seoulTotal += countAccidents(i) + countEmerMsgs(i);
         }
