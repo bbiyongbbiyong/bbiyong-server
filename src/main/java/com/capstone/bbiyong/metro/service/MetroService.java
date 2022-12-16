@@ -20,8 +20,8 @@ public class MetroService {
 
     @Transactional
     public void addMetro(Metro newMetro) {
-        Long tweetId = newMetro.getTweetId();
-        Optional<Metro> metro = metroRepository.findByTweetId(tweetId);
+        Long openapiId = newMetro.getOpenapiId();
+        Optional<Metro> metro = metroRepository.findByOpenapiId(openapiId);
         if (metro.isEmpty())
             metroRepository.save(newMetro);
     }
