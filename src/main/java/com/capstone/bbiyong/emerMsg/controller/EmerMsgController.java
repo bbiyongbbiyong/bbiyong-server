@@ -1,9 +1,7 @@
 package com.capstone.bbiyong.emerMsg.controller;
 
 import com.capstone.bbiyong.common.dto.BasicResponse;
-import com.capstone.bbiyong.emerMsg.dto.EmerMsgResponseDTO;
 import com.capstone.bbiyong.emerMsg.service.EmerMsgService;
-import com.capstone.bbiyong.openapi.EmerMsgOpenAPI;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -12,11 +10,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.List;
-
-import static org.springframework.http.HttpStatus.OK;
 
 @EnableScheduling
 @RestController

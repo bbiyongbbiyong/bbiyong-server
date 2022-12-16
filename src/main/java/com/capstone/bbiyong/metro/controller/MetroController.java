@@ -1,9 +1,7 @@
 package com.capstone.bbiyong.metro.controller;
 
 import com.capstone.bbiyong.common.dto.BasicResponse;
-import com.capstone.bbiyong.metro.dto.MetroResponseDTO;
 import com.capstone.bbiyong.metro.service.MetroService;
-import com.capstone.bbiyong.openapi.MetroOpenAPI;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +11,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
-import static org.springframework.http.HttpStatus.OK;
 
 @EnableScheduling
 @RestController
