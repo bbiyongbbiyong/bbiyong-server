@@ -44,18 +44,31 @@ public class LocationService {
         return emerMsgRepository.countByLocationId(id, now);
     }
 
+    public Long countEmerMsgsByLocationId1() {
+        Date now = new Date();
+        return emerMsgRepository.CountByLocationId1(now);
+    }
+
     public Long countMetros() {
         LocalDateTime now = LocalDateTime.now();
         return metroRepository.countByLocationId(now);
     }
 
     public HashMap countTotalEvents() {
-        for (Long i = 0l; i < 25l; i++) { // HashMap 초기화
+        Long seoulTotal = 0l;
+
+        Long emerMsg1 = countEmerMsgsByLocationId1();
+        Long metro = countMetros();
+
+        for (Long i = 1l; i <= 25l; i++) { // HashMap 초기화
             totalMap.put(i, 0l);
         }
-        for (Long i = 0l; i < 25l; i++) {
-            totalMap.put(i, countAccidents(i) + countEmerMsgs(i) + countMetros());
+        for (Long i = 2l; i <= 25l; i++) {
+            totalMap.put(i, countAccidents(i) + countEmerMsgs(i) +emerMsg1 + metro);
+            seoulTotal += countAccidents(i) + countEmerMsgs(i);
         }
+        seoulTotal += emerMsg1 + metro;
+        totalMap.put(1l, seoulTotal);
         return totalMap;
     }
 
