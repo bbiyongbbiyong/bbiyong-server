@@ -16,8 +16,10 @@ public interface MetroRepository extends JpaRepository<Metro, Long> {
     @Query(value = "select m from Metro m where m.startDate <= ?1 and m.endDate >= ?1")
     List<Metro> findAllBy(LocalDateTime now);
 
-
     @Modifying
     @Query(value = "delete from Metro m where m.endDate <= :aWeekAgo")
     void deleteAllMetrosByEndDate(@Param("aWeekAgo") LocalDateTime aWeekAgo);
+
+    @Query(value = "select count(m.text) from Metro m where m.startDate <= :now and m.endDate >= :now")
+    Long countByLocationId(@Param("now") LocalDateTime now);
 }
