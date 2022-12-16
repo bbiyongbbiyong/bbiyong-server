@@ -14,7 +14,8 @@ import java.util.Optional;
 public interface EmerMsgRepository extends JpaRepository<EmerMsg, Long> {
     Optional<EmerMsg> findByOpenapiId(Long openapiId);
 
-    @Query(value = "select e from EmerMsg e where e.location = :location " +
+    @Query(value = "select e from EmerMsg e where (e.location = :location " +
+            "or e.location.id = 1)" +
             "and e.startDate <= :now and e.endDate >= :now")
     List<EmerMsg> findAllEmerMsgByLocationAndDate(@Param("location") Location location, @Param("now") Date now);
 
