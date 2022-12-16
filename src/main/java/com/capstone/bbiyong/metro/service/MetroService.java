@@ -32,4 +32,12 @@ public class MetroService {
                 .map(MetroResponseDTO::from)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void deleteMetros() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime aWeekAgo = now.minusDays(7);
+
+        metroRepository.deleteAllMetrosByEndDate(aWeekAgo);
+    }
 }

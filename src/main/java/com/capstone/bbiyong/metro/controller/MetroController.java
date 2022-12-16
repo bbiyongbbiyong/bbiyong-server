@@ -1,17 +1,16 @@
 package com.capstone.bbiyong.metro.controller;
 
+import com.capstone.bbiyong.common.dto.BasicResponse;
 import com.capstone.bbiyong.metro.dto.MetroResponseDTO;
 import com.capstone.bbiyong.metro.service.MetroService;
 import com.capstone.bbiyong.openapi.MetroOpenAPI;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,6 +26,7 @@ public class MetroController {
 
     private final MetroOpenAPI metroOpenAPI;
     private final MetroService metroService;
+    private final BasicResponse basicResponse = new BasicResponse();
 
     @Scheduled(fixedDelay = 60000)  // 1분 간격
     @GetMapping("")
@@ -40,5 +40,13 @@ public class MetroController {
     @Operation(summary = "지하철 지연 정보 조회", description = "지하철 지연 정보를 조회합니다")
     public List<MetroResponseDTO> getMetro() {
         return metroService.getMetro(LocalDateTime.now());
+    }
+
+    @Scheduled(cron = "0 0 0 * * ?")
+    @DeleteMapping("/delete")
+    @Operation(summary = "일주일 지난 지하철 지연 정보 삭제", description = "종료된지 일주일이 지난 지하철 지연 정보를 DB에서 삭제합니다")
+    public ResponseEntity<BasicResponse> deleteMetro () {
+        metroService.deleteMetros();
+        return basicResponse.noContent();
     }
 }
