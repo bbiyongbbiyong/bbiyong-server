@@ -21,4 +21,8 @@ public interface AccidentRepository extends JpaRepository<Accident, Long> {
     @Modifying
     @Query(value = "delete from Accident a where a.endDate <= :aWeekAgo")
     void deleteAllAccidentsByEndDate(@Param("aWeekAgo") Date aWeekAgo);
+
+    @Query(value = "select count(a.location) from Accident a where a.location.id = :locationId " +
+            "and a.startDate <= :now and a.endDate >= :now")
+    Long countByLocationId(@Param("locationId") Long id, @Param("now") Date now);
 }

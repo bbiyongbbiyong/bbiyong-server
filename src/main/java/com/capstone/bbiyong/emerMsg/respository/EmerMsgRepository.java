@@ -22,4 +22,12 @@ public interface EmerMsgRepository extends JpaRepository<EmerMsg, Long> {
     @Modifying
     @Query(value = "delete from EmerMsg e where e.endDate <= :aWeekAgo")
     void deleteAllEmerMsgsByEndDate(@Param("aWeekAgo") Date aWeekAgo);
+
+    @Query(value = "select count(e.location) from EmerMsg e where e.location.id = :locationId " +
+            "and e.startDate <= :now and e.endDate >= :now")
+    Long countByLocationId(@Param("locationId") Long id, @Param("now") Date now);
+
+    @Query(value = "select count(e.location) from EmerMsg e where e.location.id = 1" +
+            "and e.startDate <= :now and e.endDate >= :now")
+    Long CountByLocationId1(@Param("now") Date now);
 }
