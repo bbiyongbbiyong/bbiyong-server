@@ -26,17 +26,8 @@ import static org.springframework.http.HttpStatus.OK;
 public class AccidentController {
 
     private final AccidentService accidentService;
-    private final OpenAPI accidentOpenAPI;
     private final BasicResponse basicResponse = new BasicResponse();
 
-    @Scheduled(fixedDelay = 60000)  // 1분 간격
-    @GetMapping("")
-    @ResponseStatus(OK)
-    @Operation(summary = "사건/사고 및 시위 API 자동 호출", description = "1분마다 사건/사고 및 시위 정보를 업데이트하여 DB에 저장합니다")
-    public ResponseEntity<BasicResponse> callAccidentOpenAPI() throws IOException, ParseException, org.json.simple.parser.ParseException {
-        accidentOpenAPI.call();
-        return basicResponse.noContent();
-    }
 
     @GetMapping("/{locationId}")
     @Operation(summary = "지역 별 사건/사고 조회", description = "지역 별 사건/사고를 조회합니다")

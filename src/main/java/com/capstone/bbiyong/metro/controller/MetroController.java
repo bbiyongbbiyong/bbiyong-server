@@ -24,18 +24,8 @@ import static org.springframework.http.HttpStatus.OK;
 @Tag(name = "🚆 Metro", description = "지하철 지연 정보 API")
 public class MetroController {
 
-    private final MetroOpenAPI metroOpenAPI;
     private final MetroService metroService;
     private final BasicResponse basicResponse = new BasicResponse();
-
-    @Scheduled(fixedDelay = 60000)  // 1분 간격
-    @GetMapping("")
-    @ResponseStatus(OK)
-    @Operation(summary = "지하철 지연 API 자동 호출", description = "1분마다 지하철 지연 관련 정보를 업데이트하여 DB에 저장합니다")
-    public ResponseEntity<BasicResponse> callTwitterOpenAPI() {
-        metroOpenAPI.callOpenAPI();
-        return basicResponse.noContent();
-    }
 
     @GetMapping("/view")
     @Operation(summary = "지하철 지연 정보 조회", description = "지하철 지연 정보를 조회합니다")
