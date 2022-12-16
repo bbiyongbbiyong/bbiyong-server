@@ -21,12 +21,12 @@ public class MetroResponseDTO {
             pattern = "yyyy.MM.dd HH:mm",
             locale = "Asia/Seoul"
     )
-    private LocalDateTime startDateTime;
+    private LocalDateTime startDate;
 
     public static MetroResponseDTO from(Metro metro) {
         return MetroResponseDTO.builder()
                 .text(metro.getText())
-                .startDateTime(metro.getStartDateTime())
+                .startDate(metro.getStartDate())
                 .build();
     }
 }
