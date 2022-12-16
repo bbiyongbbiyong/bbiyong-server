@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -37,5 +38,14 @@ public class EmerMsgService {
         return emerMsgRepository.findAllEmerMsgByLocationAndDate(location, now).stream()
                 .map(EmerMsgResponseDTO::from)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void deleteEmerMsgs() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, -7);
+
+        emerMsgRepository.deleteAllEmerMsgsByEndDate(cal.getTime());
     }
 }
