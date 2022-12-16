@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -40,5 +41,14 @@ public class AccidentService {
         return accidentRepository.findAllAccidentByLocationAndDate(location, now).stream()
                 .map(AccidentResponseDTO::from)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void deleteAccidents() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, -7);
+
+        accidentRepository.deleteAllAccidentsByEndDate(cal.getTime());
     }
 }
