@@ -32,14 +32,17 @@ public class MetroController {
     @GetMapping("")
     @ResponseStatus(OK)
     @Operation(summary = "지하철 지연 API 자동 호출", description = "1분마다 지하철 지연 관련 정보를 업데이트하여 DB에 저장합니다")
-    public void callTwitterOpenAPI() {
+    public ResponseEntity<BasicResponse> callTwitterOpenAPI() {
         metroOpenAPI.callOpenAPI();
+        return basicResponse.noContent();
     }
 
     @GetMapping("/view")
     @Operation(summary = "지하철 지연 정보 조회", description = "지하철 지연 정보를 조회합니다")
-    public List<MetroResponseDTO> getMetro() {
-        return metroService.getMetro(LocalDateTime.now());
+    public ResponseEntity<BasicResponse> getMetro() {
+        return basicResponse.ok(
+                metroService.getMetro(LocalDateTime.now())
+        );
     }
 
     @Scheduled(cron = "0 0 0 * * ?")

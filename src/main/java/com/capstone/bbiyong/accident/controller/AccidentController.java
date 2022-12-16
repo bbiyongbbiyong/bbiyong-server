@@ -33,14 +33,17 @@ public class AccidentController {
     @GetMapping("")
     @ResponseStatus(OK)
     @Operation(summary = "사건/사고 및 시위 API 자동 호출", description = "1분마다 사건/사고 및 시위 정보를 업데이트하여 DB에 저장합니다")
-    public void callAccidentOpenAPI() throws IOException, ParseException, org.json.simple.parser.ParseException {
+    public ResponseEntity<BasicResponse> callAccidentOpenAPI() throws IOException, ParseException, org.json.simple.parser.ParseException {
         accidentOpenAPI.call();
+        return basicResponse.noContent();
     }
 
     @GetMapping("/{locationId}")
     @Operation(summary = "지역 별 사건/사고 조회", description = "지역 별 사건/사고를 조회합니다")
-    public List<AccidentResponseDTO> getAccident(@PathVariable("locationId") Long locationId) {
-        return accidentService.getAccident(locationId);
+    public ResponseEntity<BasicResponse> getAccident(@PathVariable("locationId") Long locationId) {
+        return basicResponse.ok(
+                accidentService.getAccident(locationId)
+        );
     }
 
     @Scheduled(cron = "0 0 0 * * ?")

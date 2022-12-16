@@ -32,14 +32,17 @@ public class EmerMsgController {
     @GetMapping("")
     @ResponseStatus(OK)
     @Operation(summary = "재난문자 API 자동 호출", description = "1분마다 재난문자 정보를 업데이트하여 DB에 저장합니다")
-    public void callEmerMsgOpenAPI() throws IOException, ParseException {
+    public ResponseEntity<BasicResponse> callEmerMsgOpenAPI() throws IOException, ParseException {
         emerMsgOpenAPI.call();
+        return basicResponse.noContent();
     }
 
     @GetMapping("/{locationId}")
     @Operation(summary = "지역 별 재난문자 조회", description = "지역 별 발송된 재난문자를 조회합니다")
-    public List<EmerMsgResponseDTO> getEmerMsgs(@PathVariable("locationId") Long locationId) {
-        return emerMsgService.getEmerMsg(locationId);
+    public ResponseEntity<BasicResponse> getEmerMsgs(@PathVariable("locationId") Long locationId) {
+        return basicResponse.ok(
+                emerMsgService.getEmerMsg(locationId)
+        );
     }
 
     @Scheduled(cron = "0 0 0 * * ?")
