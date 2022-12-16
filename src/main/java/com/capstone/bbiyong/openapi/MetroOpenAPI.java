@@ -58,14 +58,14 @@ public class MetroOpenAPI {
                 for(TweetV2.TweetData tweet : tweetList.getData()) {
 
                         String strId = tweet.getId();
-                        long tweetId = Long.parseLong(strId);
+                        long openapiId = Long.parseLong(strId);
                         String text = tweet.getText();
                         String result = processText(text);
                         LocalDateTime startDateTime = tweet.getCreatedAt();
                         LocalDateTime endDateTime = startDateTime.plusDays(2);
 
                         Metro metro = Metro.builder()
-                                .tweetId(tweetId)
+                                .openapiId(openapiId)
                                 .text(result)
                                 .startDate(startDateTime)
                                 .endDate(endDateTime)

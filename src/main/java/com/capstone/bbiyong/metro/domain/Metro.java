@@ -17,8 +17,8 @@ public class Metro extends DateTimeEntity {
     @Column(nullable = false)
     private Long id;
 
-    @Column(name = "tweet_id", nullable = false)
-    private Long tweetId;
+    @Column(nullable = false)
+    private Long openapiId;
 
     @Column(nullable = false)
     private String text;
@@ -31,8 +31,8 @@ public class Metro extends DateTimeEntity {
 
 
     @Builder
-    public Metro(Long tweetId, String text, LocalDateTime startDate, LocalDateTime endDate) {
-        this.tweetId = tweetId;
+    public Metro(Long openapiId, String text, LocalDateTime startDate, LocalDateTime endDate) {
+        this.openapiId = openapiId;
         this.text = text;
         this.startDate = startDate;
         this.endDate = endDate;

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MetroRepository extends JpaRepository<Metro, Long> {
-    Optional<Metro> findByTweetId(Long tweetId);
+    Optional<Metro> findByOpenapiId(Long openapiId);
 
     @Query(value = "select m from Metro m where m.startDate <= ?1 and m.endDate >= ?1")
     List<Metro> findAllBy(LocalDateTime now);
