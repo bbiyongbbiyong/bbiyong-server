@@ -62,7 +62,7 @@ public class MetroOpenAPI {
                         String text = tweet.getText();
                         String result = processText(text);
                         LocalDateTime startDateTime = tweet.getCreatedAt();
-                        LocalDateTime endDateTime = startDateTime.plusDays(1);
+                        LocalDateTime endDateTime = startDateTime.plusDays(2);
 
                         Metro metro = Metro.builder()
                                 .tweetId(tweetId)
