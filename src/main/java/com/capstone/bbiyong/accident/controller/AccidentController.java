@@ -37,4 +37,12 @@ public class AccidentController {
         accidentService.deleteAccidents();
         return basicResponse.noContent();
     }
+
+    @GetMapping("/most")
+    @Operation(summary = "최빈값 조회", description = "지난 일주일 간 서울 전역에서 가장 많이 발생한 사고 유형 및 해당 사고 유형 최다 발생 구를 조회합니다.")
+    public ResponseEntity<BasicResponse> getMostAccident() {
+        return basicResponse.ok(
+                accidentService.getMostAccident()
+        );
+    }
 }
