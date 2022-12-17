@@ -10,6 +10,7 @@ import com.capstone.bbiyong.metro.repository.MetroRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,35 +26,38 @@ public class LocationService {
 
     HashMap<Long, Long> totalMap = new HashMap<>();
 
+    @Transactional
     public Location findLocation(Long id) {
         return locationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.LOCATION_NOT_FOUND));
     }
 
+    @Transactional
     public Location findLocationByName(String name) {
         return locationRepository.findByName(name);
     }
 
-    public Long countAccidents(Long id) {
+    private Long countAccidents(Long id) {
         Date now = new Date();
         return accidentRepository.countByLocationId(id, now);
     }
 
-    public Long countEmerMsgs(Long id) {
+    private Long countEmerMsgs(Long id) {
         Date now = new Date();
         return emerMsgRepository.countByLocationId(id, now);
     }
 
-    public Long countEmerMsgsByLocationId1() {
+    private Long countEmerMsgsByLocationId1() {
         Date now = new Date();
-        return emerMsgRepository.CountByLocationId1(now);
+        return emerMsgRepository.countByLocationId1(now);
     }
 
-    public Long countMetros() {
+    private Long countMetros() {
         LocalDateTime now = LocalDateTime.now();
         return metroRepository.countByLocationId(now);
     }
 
+    @Transactional
     public HashMap countTotalEvents() {
         Long seoulTotal = 0l;
 
