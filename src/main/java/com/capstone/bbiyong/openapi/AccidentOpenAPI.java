@@ -151,7 +151,7 @@ public class AccidentOpenAPI implements OpenAPI {
         Calendar cal = Calendar.getInstance();
         Date tempDate = fm.parse(String.valueOf(intDate));
         cal.setTime(tempDate);
-        cal.add(Calendar.HOUR, Integer.parseInt(strHour));
+        cal.add(Calendar.HOUR_OF_DAY, Integer.parseInt(strHour));
         cal.add(Calendar.MINUTE, Integer.parseInt(strMin));
 
         return cal.getTime();
