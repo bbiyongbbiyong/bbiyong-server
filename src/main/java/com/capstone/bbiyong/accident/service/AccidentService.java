@@ -3,6 +3,7 @@ package com.capstone.bbiyong.accident.service;
 
 import com.capstone.bbiyong.accident.domain.Accident;
 import com.capstone.bbiyong.accident.dto.AccidentResponseDTO;
+import com.capstone.bbiyong.accident.dto.MostAccidentResponseDTO;
 import com.capstone.bbiyong.accident.repository.AccidentRepository;
 import com.capstone.bbiyong.location.domain.Location;
 import com.capstone.bbiyong.location.service.LocationService;
@@ -50,5 +51,19 @@ public class AccidentService {
         cal.add(Calendar.DATE, -7);
 
         accidentRepository.deleteAllAccidentsByEndDate(cal.getTime());
+    }
+
+    @Transactional
+    public MostAccidentResponseDTO getMostAccident() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, -7);
+
+        Optional<String> accidentType = accidentRepository.findMostAccidentByAccidentType(cal.getTime());
+        System.out.println(accidentType.get());
+        Optional<Long> locationId = accidentRepository.findMostLocationByAccidentType(accidentType.get(), cal.getTime());
+
+        System.out.println(locationId.get());
+        return MostAccidentResponseDTO.from(accidentType.get(), locationId.get());
     }
 }
