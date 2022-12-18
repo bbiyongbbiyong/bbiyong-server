@@ -15,7 +15,8 @@ public interface AccidentRepository extends JpaRepository<Accident, Long> {
     Optional<Accident> findByOpenapiId(Long openapiId);
 
     @Query(value = "select a from Accident a where a.location = :location " +
-            "and a.startDate <= :now and a.endDate >= :now")
+            "and a.startDate <= :now and a.endDate >= :now " +
+            "order by a.startDate DESC")
     List<Accident> findAllAccidentByLocationAndDate(@Param("location") Location location, @Param("now") Date now);
 
     @Modifying

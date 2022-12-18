@@ -13,7 +13,8 @@ import java.util.Optional;
 public interface MetroRepository extends JpaRepository<Metro, Long> {
     Optional<Metro> findByOpenapiId(Long openapiId);
 
-    @Query(value = "select m from Metro m where m.startDate <= ?1 and m.endDate >= ?1")
+    @Query(value = "select m from Metro m where m.startDate <= ?1 and m.endDate >= ?1 " +
+                    "order by m.startDate DESC")
     List<Metro> findAllBy(LocalDateTime now);
 
     @Modifying

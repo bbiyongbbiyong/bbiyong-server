@@ -16,7 +16,8 @@ public interface EmerMsgRepository extends JpaRepository<EmerMsg, Long> {
 
     @Query(value = "select e from EmerMsg e where (e.location = :location " +
             "or e.location.id = 1)" +
-            "and e.startDate <= :now and e.endDate >= :now")
+            "and e.startDate <= :now and e.endDate >= :now " +
+            "order by e.startDate DESC")
     List<EmerMsg> findAllEmerMsgByLocationAndDate(@Param("location") Location location, @Param("now") Date now);
 
     @Modifying
