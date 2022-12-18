@@ -19,7 +19,7 @@ public class EmerMsgResponseDTO {
 
     private String locationName;
 
-    private String message;
+    private String accidentInfo;
     @JsonFormat(
             shape = JsonFormat.Shape.STRING,
             pattern = "yyyy.MM.dd HH:mm",
@@ -31,7 +31,7 @@ public class EmerMsgResponseDTO {
         return EmerMsgResponseDTO.builder()
                 .locationId(emerMsg.getLocation().getId())
                 .locationName(emerMsg.getLocation().getName())
-                .message(emerMsg.getMessage())
+                .accidentInfo(emerMsg.getMessage())
                 .startDate(emerMsg.getStartDate())
                 .build();
     }
