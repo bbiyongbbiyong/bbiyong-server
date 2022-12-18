@@ -60,10 +60,8 @@ public class AccidentService {
         cal.add(Calendar.DATE, -7);
 
         Optional<String> accidentType = accidentRepository.findMostAccidentByAccidentType(cal.getTime());
-        System.out.println(accidentType.get());
         Optional<Long> locationId = accidentRepository.findMostLocationByAccidentType(accidentType.get(), cal.getTime());
 
-        System.out.println(locationId.get());
         return MostAccidentResponseDTO.from(accidentType.get(), locationId.get());
     }
 }
