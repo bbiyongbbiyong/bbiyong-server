@@ -1,4 +1,8 @@
-[![Java CI with Gradle](https://github.com/bbiyongbbiyong/bbiyong-server/actions/workflows/gradle.yml/badge.svg)](https://github.com/bbiyongbbiyong/bbiyong-server/actions/workflows/gradle.yml)
+<p>
+  <a href="https://github.com/bbiyongbbiyong/bbiyong-server/actions/workflows/gradle.yml"><img src="https://github.com/bbiyongbbiyong/bbiyong-server/actions/workflows/gradle.yml/badge.svg"/></a> &nbsp
+  <img src="https://img.shields.io/badge/test%20server-down-red"/>
+</p>
+
 
 # 🚨 삐용삐용 🚨
 ### 실시간 재난/교통 정보 모아보기
