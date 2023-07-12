@@ -10,8 +10,11 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation project(':bbiyong-domain')
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+    implementation 'io.github.redouane59.twitter:twittered:2.21'
+    implementation 'org.json:json:20220924'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
 }
 
 test {
