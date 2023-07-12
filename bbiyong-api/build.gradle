@@ -13,7 +13,7 @@ dependencies {
     implementation project(':bbiyong-domain')
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
-    implementation 'mysql:mysql-connector-java'
+    runtimeOnly 'com.mysql:mysql-connector-j'
 }
 
 test {
