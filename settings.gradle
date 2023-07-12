@@ -1,1 +1,5 @@
 rootProject.name = 'bbiyong'
+include 'bbiyong-api'
+include 'bbiyong-batch'
+include 'bbiyong-domain'
+include 'bbiyong-notification'
