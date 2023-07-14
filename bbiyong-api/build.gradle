@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.capstone'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':bbiyong-domain')
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+}
+
+test {
+    useJUnitPlatform()
+}

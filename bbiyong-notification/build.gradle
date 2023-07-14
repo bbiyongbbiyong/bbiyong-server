@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.capstone'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.firebase:firebase-admin:9.1.0'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
+}
+
+test {
+    useJUnitPlatform()
+}
