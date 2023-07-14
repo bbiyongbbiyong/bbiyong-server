@@ -2,7 +2,7 @@ package com.capstone;
 
 import org.junit.jupiter.api.Test;
 
-class BbiyongApplicationTests {
+class BbiyongBatchApplicationTests {
 
 	@Test
 	void contextLoads() {
