@@ -43,8 +43,8 @@ jobs:
       with:
         arguments: build
 
-    - name: Make Zip File
-      run: zip -qq -r ./$GITHUB_SHA.zip .
+    - name: Make bbiyong-api Zip File
+      run: zip -qq -r ./$GITHUB_SHA.zip ./bbiyong-api
       shell: bash
 
     - name: Configure AWS credentials
