@@ -11,6 +11,7 @@ permissions:
   - object: /home/ubuntu/bbiyong/
     owner: ubuntu
     group: ubuntu
+
 hooks:
   AfterInstall:
     - location: scripts/deploy.sh
