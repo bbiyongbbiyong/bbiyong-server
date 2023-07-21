@@ -16,7 +16,7 @@ on:
 env:
   PROJECT_NAME: bbiyong
   BUCKET_NAME: bbiyong-cicd-bucket
-  CODE_DEPLOY_APP_NAME: bbiyongcicd_
+  CODE_DEPLOY_APP_NAME: bbiyong_cicd
   DEPLOYMENT_GROUP_NAME: bbiyong_instance
 
 permissions:
