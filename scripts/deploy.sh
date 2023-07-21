@@ -3,7 +3,7 @@
 REPOSITORY=/home/ubuntu/bbiyong
 cd $REPOSITORY
 
-JAR_NAME=$(ls $REPOSITORY/build/libs/ | grep 'bbiyong-plain.jar' | tail -n 1)
+JAR_NAME=$(ls $REPOSITORY/build/libs/ | grep 'bbiyong.jar' | tail -n 1)
 JAR_PATH=$REPOSITORY/build/libs/$JAR_NAME
 
 echo "> 현재 구동 중인 애플리케이션 pid 확인"
