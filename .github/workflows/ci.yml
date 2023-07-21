@@ -16,7 +16,7 @@ on:
 env:
   PROJECT_NAME: bbiyong
   BUCKET_NAME: bbiyong-cicd-bucket
-  CODE_DEPLOY_APP_NAME: bbiyongcicd_
+  CODE_DEPLOY_APP_NAME: bbiyong_cicd
   DEPLOYMENT_GROUP_NAME: bbiyong_instance
 
 permissions:
@@ -44,7 +44,7 @@ jobs:
         arguments: build
 
     - name: Make bbiyong-api Zip File
-      run: zip -qq -r ./$GITHUB_SHA.zip ./bbiyong-api
+      run: zip -qq -r ./$GITHUB_SHA.zip ../../bbiyong-api
       shell: bash
 
     - name: Configure AWS credentials
