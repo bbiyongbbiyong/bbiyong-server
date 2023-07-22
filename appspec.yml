@@ -13,6 +13,8 @@ permissions:
     group: ubuntu
 
 hooks:
+  BeforeInstall:
+    - timeout: 60
   AfterInstall:
     - location: scripts/deploy.sh
       timeout: 60
