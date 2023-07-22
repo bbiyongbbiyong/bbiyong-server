@@ -37,10 +37,9 @@ jobs:
       run: chmod +x ./gradlew
 
     - name: Build with Gradle
-      uses: ./gradlew :bbiyong-api:buildNeeded
-#      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
-        arguments: build
+        arguments: :bbiyong-api:buildNeeded
 
     - name: Make bbiyong-api Zip File
       run: zip -qq -r ./$GITHUB_SHA.zip ./bbiyong-api
