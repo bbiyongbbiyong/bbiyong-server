@@ -1,7 +1,7 @@
-package com.capstone.accident;
+package com.capstone.accident.domain;
 
 import com.capstone.common.DateTimeEntity;
-import com.capstone.location.Location;
+import com.capstone.location.domain.Location;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,8 +1,8 @@
 package com.capstone.openapi;
 
-import com.capstone.emerMsg.EmerMsg;
+import com.capstone.emerMsg.domain.EmerMsg;
 import com.capstone.emerMsg.service.EmerMsgService;
-import com.capstone.location.Location;
+import com.capstone.location.domain.Location;
 import com.capstone.location.repository.LocationRepository;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;

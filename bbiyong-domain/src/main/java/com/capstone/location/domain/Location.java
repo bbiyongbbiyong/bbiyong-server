@@ -1,4 +1,4 @@
-package com.capstone.location;
+package com.capstone.location.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

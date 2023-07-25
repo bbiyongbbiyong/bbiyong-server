@@ -1,6 +1,6 @@
 package com.capstone.openapi;
 
-import com.capstone.metro.Metro;
+import com.capstone.metro.domain.Metro;
 import com.capstone.metro.service.MetroService;
 import io.github.redouane59.twitter.TwitterClient;
 import io.github.redouane59.twitter.dto.endpoints.AdditionalParameters;

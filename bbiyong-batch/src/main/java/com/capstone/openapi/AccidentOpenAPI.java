@@ -1,6 +1,6 @@
 package com.capstone.openapi;
 
-import com.capstone.accident.Accident;
+import com.capstone.accident.domain.Accident;
 import com.capstone.accident.service.AccidentService;
 import com.capstone.location.service.LocationService;
 import lombok.RequiredArgsConstructor;

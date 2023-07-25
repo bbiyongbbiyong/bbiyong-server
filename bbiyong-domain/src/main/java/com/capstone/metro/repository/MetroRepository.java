@@ -1,6 +1,6 @@
 package com.capstone.metro.repository;
 
-import com.capstone.metro.Metro;
+import com.capstone.metro.domain.Metro;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

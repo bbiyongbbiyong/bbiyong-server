@@ -1,47 +1,42 @@
-package com.capstone.emerMsg;
+package com.capstone.metro.domain;
 
 import com.capstone.common.DateTimeEntity;
-import com.capstone.location.Location;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
-@Entity
 @Getter
 @NoArgsConstructor
-public class EmerMsg extends DateTimeEntity {
+@Entity
+public class Metro extends DateTimeEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "emer_msg_id", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @Column(nullable = false)
     private Long openapiId;
 
     @Column(nullable = false)
-    private String message;
+    private String text;
 
     @Column(nullable = false)
-    private Date startDate;
+    private LocalDateTime startDate;
 
     @Column(nullable = false)
-    private Date endDate;
+    private LocalDateTime endDate;
 
-    @ManyToOne
-    @JoinColumn(name = "location_id")
-    private Location location;
 
     @Builder
-    public EmerMsg(Long openapiId, String message, Date startDate, Date endDate, Location location) {
+    public Metro(Long openapiId, String text, LocalDateTime startDate, LocalDateTime endDate) {
         this.openapiId = openapiId;
-        this.message = message;
+        this.text = text;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.location = location;
     }
 }

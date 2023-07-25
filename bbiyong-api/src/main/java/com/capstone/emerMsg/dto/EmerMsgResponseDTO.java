@@ -1,6 +1,6 @@
 package com.capstone.emerMsg.dto;
 
-import com.capstone.emerMsg.EmerMsg;
+import com.capstone.emerMsg.domain.EmerMsg;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

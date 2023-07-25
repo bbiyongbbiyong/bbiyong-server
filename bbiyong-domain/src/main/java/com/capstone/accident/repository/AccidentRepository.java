@@ -1,7 +1,7 @@
 package com.capstone.accident.repository;
 
-import com.capstone.accident.Accident;
-import com.capstone.location.Location;
+import com.capstone.accident.domain.Accident;
+import com.capstone.location.domain.Location;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

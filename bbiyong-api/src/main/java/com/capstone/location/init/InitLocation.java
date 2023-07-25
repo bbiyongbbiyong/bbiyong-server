@@ -1,6 +1,6 @@
 package com.capstone.location.init;
 
-import com.capstone.location.Location;
+import com.capstone.location.domain.Location;
 import com.capstone.location.repository.LocationRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
