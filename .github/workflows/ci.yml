@@ -60,5 +60,5 @@ jobs:
        --application-name $CODE_DEPLOY_APP_NAME
        --deployment-config-name CodeDeployDefault.AllAtOnce
        --deployment-group-name $DEPLOYMENT_GROUP_NAME
-       --file-exists-behavior OVERWRITE
+#       --file-exists-behavior OVERWRITE
        --s3-location bucket=$BUCKET_NAME,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
