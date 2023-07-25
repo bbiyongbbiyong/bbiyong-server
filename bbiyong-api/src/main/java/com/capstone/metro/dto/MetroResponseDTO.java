@@ -1,6 +1,6 @@
 package com.capstone.metro.dto;
 
-import com.capstone.metro.Metro;
+import com.capstone.metro.domain.Metro;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

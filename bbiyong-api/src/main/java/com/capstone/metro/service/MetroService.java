@@ -1,9 +1,9 @@
 package com.capstone.metro.service;
 
-import com.capstone.metro.Metro;
+import com.capstone.metro.domain.Metro;
 import com.capstone.metro.dto.MetroResponseDTO;
 import com.capstone.metro.repository.MetroRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,11 +1,11 @@
 package com.capstone.emerMsg.service;
 
-import com.capstone.emerMsg.EmerMsg;
+import com.capstone.emerMsg.domain.EmerMsg;
 import com.capstone.emerMsg.dto.EmerMsgResponseDTO;
 import com.capstone.emerMsg.respository.EmerMsgRepository;
-import com.capstone.location.Location;
+import com.capstone.location.domain.Location;
 import com.capstone.location.service.LocationService;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

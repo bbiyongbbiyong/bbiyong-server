@@ -1,13 +1,13 @@
 package com.capstone.accident.service;
 
 
-import com.capstone.accident.Accident;
+import com.capstone.accident.domain.Accident;
 import com.capstone.accident.dto.AccidentResponseDTO;
 import com.capstone.accident.dto.MostAccidentResponseDTO;
 import com.capstone.accident.repository.AccidentRepository;
-import com.capstone.location.Location;
+import com.capstone.location.domain.Location;
 import com.capstone.location.service.LocationService;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

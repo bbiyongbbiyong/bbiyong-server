@@ -1,7 +1,7 @@
 package com.capstone.emerMsg.respository;
 
-import com.capstone.emerMsg.EmerMsg;
-import com.capstone.location.Location;
+import com.capstone.emerMsg.domain.EmerMsg;
+import com.capstone.location.domain.Location;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

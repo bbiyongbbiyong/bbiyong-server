@@ -4,10 +4,10 @@ import com.capstone.accident.repository.AccidentRepository;
 import com.capstone.common.exception.EntityNotFoundException;
 import com.capstone.common.exception.ErrorCode;
 import com.capstone.emerMsg.respository.EmerMsgRepository;
-import com.capstone.location.Location;
+import com.capstone.location.domain.Location;
 import com.capstone.location.repository.LocationRepository;
 import com.capstone.metro.repository.MetroRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

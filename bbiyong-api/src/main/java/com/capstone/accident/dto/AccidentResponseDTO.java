@@ -1,6 +1,6 @@
 package com.capstone.accident.dto;
 
-import com.capstone.accident.Accident;
+import com.capstone.accident.domain.Accident;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
