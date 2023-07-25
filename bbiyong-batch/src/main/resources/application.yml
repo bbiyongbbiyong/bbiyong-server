@@ -1,12 +1,10 @@
 spring:
   jpa:
-    show-sql: false
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    open-in-view: false
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        dialect: org.hibernate.dialect.MySQLDialect
   config:
     import: application-datasource.yml, application-setting.yml
