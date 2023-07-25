@@ -107,21 +107,18 @@ public class EmerMsgOpenAPI implements OpenAPI {
             Date startDate = StringToDate(strStartDate);
             Date endDate = getEndDate(startDate);
 
-            if (!(locationId.contains(",") || message.contains("신규") || message.contains("확진") || message.contains("접종") || message.contains("이상") || message.contains("기준")
-                    || message.contains("2가") || message.contains("백신") || message.contains("예약") || message.contains("코로나") || message.contains("실종") || message.contains("배회") || message.contains("목격"))) {
-                Long id = Long.parseLong(locationId) - 135;
-                Optional<Location> OptLocation = locationRepository.findById(id);
-                if (OptLocation.isPresent()) {
-                    EmerMsg emerMsg = EmerMsg.builder()
-                            .openapiId(Long.parseLong(openapiId))
-                            .message(message)
-                            .startDate(startDate)
-                            .endDate(endDate)
-                            .location(OptLocation.get())
-                            .build();
+            Long id = Long.parseLong(locationId) - 135;
+            Optional<Location> OptLocation = locationRepository.findById(id);
+            if (OptLocation.isPresent()) {
+                EmerMsg emerMsg = EmerMsg.builder()
+                        .openapiId(Long.parseLong(openapiId))
+                        .message(message)
+                        .startDate(startDate)
+                        .endDate(endDate)
+                        .location(OptLocation.get())
+                        .build();
 
-                    emerMsgService.addEmerMsg(emerMsg);
-                }
+                emerMsgService.addEmerMsg(emerMsg);
             }
         }
     }
