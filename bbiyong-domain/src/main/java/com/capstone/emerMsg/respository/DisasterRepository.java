@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface DisasterRepository extends JpaRepository<Disaster, Long> {
 
-    @Query(value = "select d.enTopic from Disaster d where :message like CONCAT('%', d.krTopic, '%')")
-    Optional<String> findEnTopicByKrTopic(@Param("message") String message);
+    @Query(value = "select d from Disaster d where :message like CONCAT('%', d.krTopic, '%')")
+    Optional<Disaster> findEnTopicByKrTopic(@Param("message") String message);
 
 }
