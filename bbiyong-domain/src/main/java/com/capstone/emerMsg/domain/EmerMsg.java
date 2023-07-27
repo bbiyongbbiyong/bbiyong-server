@@ -35,17 +35,21 @@ public class EmerMsg extends DateTimeEntity {
     @Column(nullable = false)
     private String emergencyType;
 
+    @Column(nullable = false)
+    private String emergencyTopic;
+
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
 
     @Builder
-    public EmerMsg(Long openapiId, String message, Date startDate, Date endDate, String emergencyType, Location location) {
+    public EmerMsg(Long openapiId, String message, Date startDate, Date endDate, String emergencyType, String emergencyTopic, Location location) {
         this.openapiId = openapiId;
         this.message = message;
         this.startDate = startDate;
         this.endDate = endDate;
         this.location = location;
         this.emergencyType = emergencyType;
+        this.emergencyTopic = emergencyTopic;
     }
 }

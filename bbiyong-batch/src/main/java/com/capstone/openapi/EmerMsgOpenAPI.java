@@ -111,6 +111,7 @@ public class EmerMsgOpenAPI implements OpenAPI {
             if (!locationId.contains(",")) {
                 Long id = Long.parseLong(locationId) - 135;
                 Optional<Location> OptLocation = locationRepository.findById(id);
+                String emergencyTopic = emerMsgUtils.getEmergencyTopic(message);
                 String emergencyType = emerMsgUtils.getEmergencyType(message);
                 if (OptLocation.isPresent()) {
                     EmerMsg emerMsg = EmerMsg.builder()
@@ -119,6 +120,7 @@ public class EmerMsgOpenAPI implements OpenAPI {
                             .startDate(startDate)
                             .endDate(endDate)
                             .location(OptLocation.get())
+                            .emergencyTopic(emergencyTopic)
                             .emergencyType(emergencyType)
                             .build();
 

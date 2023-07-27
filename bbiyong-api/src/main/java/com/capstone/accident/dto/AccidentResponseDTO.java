@@ -23,6 +23,7 @@ public class AccidentResponseDTO {
     private Date startDate;
 
     private String accidentType;
+    private String accidentTopic;
     private String accidentInfo;
 
     private Long locationId;
@@ -31,6 +32,7 @@ public class AccidentResponseDTO {
         return AccidentResponseDTO.builder()
                 .startDate(accident.getStartDate())
                 .accidentType(accident.getAccidentType())
+                .accidentTopic(accident.getAccidentTopic())
                 .accidentInfo(accident.getAccidentInfo())
                 .locationId(accident.getLocation().getId())
                 .build();
