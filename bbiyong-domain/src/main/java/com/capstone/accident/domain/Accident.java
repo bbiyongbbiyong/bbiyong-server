@@ -23,6 +23,7 @@ public class Accident extends DateTimeEntity {
 
     private Long openapiId;
     private String accidentType;
+    private String accidentTopic;
     private String accidentInfo;
     private Date startDate;
     private Date endDate;
@@ -32,11 +33,12 @@ public class Accident extends DateTimeEntity {
     private Location location;
 
     @Builder
-    public Accident(Long openapiId, Date startDate, Date endDate, String accidentType, String accidentInfo, Location location) {
+    public Accident(Long openapiId, Date startDate, Date endDate, String accidentType, String accidentTopic, String accidentInfo, Location location) {
         this.openapiId = openapiId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.accidentType = accidentType;
+        this.accidentTopic = accidentTopic;
         this.accidentInfo = accidentInfo;
         this.location = location;
     }

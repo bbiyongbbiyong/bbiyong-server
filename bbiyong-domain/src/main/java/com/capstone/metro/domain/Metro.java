@@ -26,6 +26,9 @@ public class Metro extends DateTimeEntity {
     private String text;
 
     @Column(nullable = false)
+    private String metroTopic;
+
+    @Column(nullable = false)
     private LocalDateTime startDate;
 
     @Column(nullable = false)
@@ -33,9 +36,10 @@ public class Metro extends DateTimeEntity {
 
 
     @Builder
-    public Metro(Long openapiId, String text, LocalDateTime startDate, LocalDateTime endDate) {
+    public Metro(Long openapiId, String text, String metroTopic, LocalDateTime startDate, LocalDateTime endDate) {
         this.openapiId = openapiId;
         this.text = text;
+        this.metroTopic = metroTopic;
         this.startDate = startDate;
         this.endDate = endDate;
     }
