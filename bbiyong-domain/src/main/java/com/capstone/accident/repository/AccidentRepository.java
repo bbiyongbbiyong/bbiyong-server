@@ -38,9 +38,6 @@ public interface AccidentRepository extends JpaRepository<Accident, Long> {
             "where accident_type = :accidentType and start_date >= :aWeekAgo group by location_id) as result) limit 1", nativeQuery = true)
     Optional<Long> findMostLocationByAccidentType(@Param("accidentType") String accidentType, @Param("aWeekAgo") Date aWeekAgo);
 
-    @Query(value = "select count(*) from Accident a where date(a.startDate) = date(:yesterday)")
-    int countYdyAccidentByDate(@Param("yesterday") Date yesterday);
-
-    @Query(value = "select count(*) from Accident a where date(a.startDate) = date(now())")
-    int countTdyAccidentByDate();
+    @Query(value = "select count(*) from Accident a where date(a.startDate) = date(:date)")
+    int countAccidentByDate(@Param("date") Date date);
 }

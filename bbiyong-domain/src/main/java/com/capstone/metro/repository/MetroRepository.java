@@ -25,9 +25,6 @@ public interface MetroRepository extends JpaRepository<Metro, Long> {
     @Query(value = "select count(m.text) from Metro m where m.startDate <= :now and m.endDate >= :now")
     Long countByLocationId(@Param("now") LocalDateTime now);
 
-    @Query(value = "select count(*) from Metro m where date(m.startDate) = date(:yesterday)")
-    int countYdyMetroByDate(@Param("yesterday") Date yesterday);
-
-    @Query(value = "select count(*) from Metro m where date(m.startDate) = date(now())")
-    int countTdyMetroByDate();
+    @Query(value = "select count(*) from Metro m where date(m.startDate) = date(:date)")
+    int countMetroByDate(@Param("date") Date date);
 }

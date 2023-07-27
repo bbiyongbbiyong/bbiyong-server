@@ -32,9 +32,6 @@ public interface EmerMsgRepository extends JpaRepository<EmerMsg, Long> {
             "and e.startDate <= :now and e.endDate >= :now")
     Long countByLocationId1(@Param("now") Date now);
 
-    @Query(value = "select count(*) from EmerMsg e where date(e.startDate) = date(:yesterday)")
-    int countYdyEmerMsgByDate(@Param("yesterday") Date yesterday);
-
-    @Query(value = "select count(*) from  EmerMsg e where date(e.startDate) = date(now())")
-    int countTdyEmerMsgByDate();
+    @Query(value = "select count(*) from EmerMsg e where date(e.startDate) = date(:date)")
+    int countEmerMsgByDate(@Param("date") Date date);
 }

@@ -14,7 +14,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class AnalyticsService {
 
@@ -24,16 +23,18 @@ public class AnalyticsService {
 
     @Transactional
     public ChartDataResponseDTO getAnalyzedData() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        cal.add(Calendar.DATE, -1);
+        Calendar today = Calendar.getInstance();
+        today.setTime(new Date());
+        Calendar yesterday = Calendar.getInstance();
+        yesterday.setTime(new Date());
+        yesterday.add(Calendar.DATE, -1);
 
-        int emergencyMsgYdy = emerMsgRepository.countYdyEmerMsgByDate(cal.getTime());
-        int emergencyMsgTdy = emerMsgRepository.countTdyEmerMsgByDate();
-        int metroYdy = metroRepository.countYdyMetroByDate(cal.getTime());
-        int metroTdy = metroRepository.countTdyMetroByDate();
-        int accidentYdy = accidentRepository.countYdyAccidentByDate(cal.getTime());
-        int accidentTdy = accidentRepository.countTdyAccidentByDate();
+        int emergencyMsgYdy = emerMsgRepository.countEmerMsgByDate(yesterday.getTime());
+        int emergencyMsgTdy = emerMsgRepository.countEmerMsgByDate(today.getTime());
+        int metroYdy = metroRepository.countMetroByDate(yesterday.getTime());
+        int metroTdy = metroRepository.countMetroByDate(today.getTime());
+        int accidentYdy = accidentRepository.countAccidentByDate(yesterday.getTime());
+        int accidentTdy = accidentRepository.countAccidentByDate(today.getTime());
 
         return ChartDataResponseDTO.of(emergencyMsgYdy, emergencyMsgTdy, metroYdy, metroTdy, accidentYdy, accidentTdy);
     }
