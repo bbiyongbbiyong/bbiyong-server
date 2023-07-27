@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,4 +24,7 @@ public interface MetroRepository extends JpaRepository<Metro, Long> {
 
     @Query(value = "select count(m.text) from Metro m where m.startDate <= :now and m.endDate >= :now")
     Long countByLocationId(@Param("now") LocalDateTime now);
+
+    @Query(value = "select count(*) from Metro m where date(m.startDate) = date(:date)")
+    int countMetroByDate(@Param("date") Date date);
 }
