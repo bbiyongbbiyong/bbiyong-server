@@ -38,5 +38,3 @@ VALUES
     ('social', "배회", "missing"),
     ('social', "목격", "missing"),
     ('social', "교통", "traffic");
-
-
