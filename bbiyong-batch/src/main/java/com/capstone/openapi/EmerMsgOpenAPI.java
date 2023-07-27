@@ -4,6 +4,7 @@ import com.capstone.emerMsg.domain.EmerMsg;
 import com.capstone.emerMsg.service.EmerMsgService;
 import com.capstone.location.domain.Location;
 import com.capstone.location.repository.LocationRepository;
+import com.capstone.openapi.utils.DateUtils;
 import com.capstone.openapi.utils.EmerMsgUtils;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
@@ -29,6 +30,7 @@ public class EmerMsgOpenAPI implements OpenAPI {
     private final EmerMsgService emerMsgService;
     private final LocationRepository locationRepository;
     private final EmerMsgUtils emerMsgUtils;
+    private final DateUtils dateUtils;
 
     @Value("${app.emergency-message-key}")
     private String EMERGENCY_MESSAGE_KEY;
@@ -54,7 +56,7 @@ public class EmerMsgOpenAPI implements OpenAPI {
             .append("&" + encode("pageNo","UTF-8") + "=" + encode(START_LOCATION, "UTF-8")) /*페이지번호*/
             .append("&" + encode("numOfRows","UTF-8") + "=" + encode(END_LOCATION, "UTF-8")) /*한 페이지 결과 수*/
             .append("&" + encode("type","UTF-8") + "=" + encode(REQUEST_FILE_TYPE, "UTF-8")) /*호출문서 형식*/
-            .append("&" + encode("create_date","UTF-8") + "=" + encode(emerMsgUtils.getStartDate(), "UTF-8")) /*생성일시(포함하여 큰 데이터 조회)*/
+            .append("&" + encode("create_date","UTF-8") + "=" + encode(dateUtils.getStartDate(), "UTF-8")) /*생성일시(포함하여 큰 데이터 조회)*/
             .append("&" + encode("location_name","UTF-8") + "=" + encode(LOCATION, "UTF-8")); /*수신지역 이름*/
 
         URL url = new URL(urlBuilder.toString());
@@ -103,8 +105,8 @@ public class EmerMsgOpenAPI implements OpenAPI {
             String message = String.valueOf(jsonObject.get("msg"));
             String strStartDate = String.valueOf(jsonObject.get("create_date"));
 
-            Date startDate = emerMsgUtils.StringToDate(strStartDate);
-            Date endDate = emerMsgUtils.getEndDate(startDate);
+            Date startDate = dateUtils.StringToDate(strStartDate);
+            Date endDate = dateUtils.getEndDate(startDate);
 
             if (!locationId.contains(",")) {
                 Long id = Long.parseLong(locationId) - 135;
