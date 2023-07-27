@@ -3,6 +3,7 @@ package com.capstone.openapi;
 import com.capstone.accident.domain.Accident;
 import com.capstone.accident.service.AccidentService;
 import com.capstone.location.service.LocationService;
+import com.capstone.openapi.utils.AccidentUtils;
 import com.capstone.openapi.utils.DateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,7 @@ public class AccidentOpenAPI implements OpenAPI {
     private final XYChangeOpenAPI xyChangeOpenAPI;
     private final LocationService locationService;
     private final DateUtils dateUtils;
+    private final AccidentUtils accidentUtils;
 
     @Override
     public void call() throws IOException, ParseException, org.json.simple.parser.ParseException {
@@ -116,11 +118,14 @@ public class AccidentOpenAPI implements OpenAPI {
 
             String locationName = xyChangeOpenAPI.XYChangeToAddress(xMap, yMap);
 
+            String accidentTopic = accidentUtils.getAccidentTopic(accidentType);
+
             Accident accident = Accident.builder()
                     .openapiId(openapiId)
                     .startDate(startDate)
                     .endDate(endDate)
                     .accidentType(accidentType)
+                    .accidentTopic(accidentTopic)
                     .accidentInfo(accidentInfo)
                     .location(locationService.findLocationByName(locationName))
                     .build();
