@@ -3,7 +3,7 @@ package com.capstone.openapi;
 import com.capstone.accident.domain.Accident;
 import com.capstone.accident.service.AccidentService;
 import com.capstone.location.service.LocationService;
-import com.capstone.openapi.utils.AccidentUtils;
+import com.capstone.openapi.utils.DateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
@@ -41,7 +41,7 @@ public class AccidentOpenAPI implements OpenAPI {
 
     private final XYChangeOpenAPI xyChangeOpenAPI;
     private final LocationService locationService;
-    private final AccidentUtils accidentUtils;
+    private final DateUtils dateUtils;
 
     @Override
     public void call() throws IOException, ParseException, org.json.simple.parser.ParseException {
@@ -111,8 +111,8 @@ public class AccidentOpenAPI implements OpenAPI {
             BigDecimal yMap = jsonObject.getBigDecimal("grs80tm_y"); /*Y 좌표*/
             String accidentInfo = String.valueOf(jsonObject.get("acc_info")).replace("\r", "\n"); /*상세 정보*/
 
-            Date startDate = accidentUtils.parseDateFormat(intStartDate, intStartTime);
-            Date endDate = accidentUtils.parseDateFormat(intEndDate, intEndTime);
+            Date startDate = dateUtils.parseDateFormat(intStartDate, intStartTime);
+            Date endDate = dateUtils.parseDateFormat(intEndDate, intEndTime);
 
             String locationName = xyChangeOpenAPI.XYChangeToAddress(xMap, yMap);
 
