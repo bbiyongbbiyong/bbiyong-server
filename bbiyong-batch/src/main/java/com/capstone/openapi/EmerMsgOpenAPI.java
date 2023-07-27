@@ -4,6 +4,7 @@ import com.capstone.emerMsg.domain.EmerMsg;
 import com.capstone.emerMsg.service.EmerMsgService;
 import com.capstone.location.domain.Location;
 import com.capstone.location.repository.LocationRepository;
+import com.capstone.openapi.utils.EmerMsgUtils;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,10 +18,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 
 import static java.net.URLEncoder.encode;
 
@@ -30,6 +28,7 @@ public class EmerMsgOpenAPI implements OpenAPI {
 
     private final EmerMsgService emerMsgService;
     private final LocationRepository locationRepository;
+    private final EmerMsgUtils emerMsgUtils;
 
     @Value("${app.emergency-message-key}")
     private String EMERGENCY_MESSAGE_KEY;
@@ -55,7 +54,7 @@ public class EmerMsgOpenAPI implements OpenAPI {
             .append("&" + encode("pageNo","UTF-8") + "=" + encode(START_LOCATION, "UTF-8")) /*페이지번호*/
             .append("&" + encode("numOfRows","UTF-8") + "=" + encode(END_LOCATION, "UTF-8")) /*한 페이지 결과 수*/
             .append("&" + encode("type","UTF-8") + "=" + encode(REQUEST_FILE_TYPE, "UTF-8")) /*호출문서 형식*/
-            .append("&" + encode("create_date","UTF-8") + "=" + encode(getStartDate(), "UTF-8")) /*생성일시(포함하여 큰 데이터 조회)*/
+            .append("&" + encode("create_date","UTF-8") + "=" + encode(emerMsgUtils.getStartDate(), "UTF-8")) /*생성일시(포함하여 큰 데이터 조회)*/
             .append("&" + encode("location_name","UTF-8") + "=" + encode(LOCATION, "UTF-8")); /*수신지역 이름*/
 
         URL url = new URL(urlBuilder.toString());
@@ -104,44 +103,26 @@ public class EmerMsgOpenAPI implements OpenAPI {
             String message = String.valueOf(jsonObject.get("msg"));
             String strStartDate = String.valueOf(jsonObject.get("create_date"));
 
-            Date startDate = StringToDate(strStartDate);
-            Date endDate = getEndDate(startDate);
+            Date startDate = emerMsgUtils.StringToDate(strStartDate);
+            Date endDate = emerMsgUtils.getEndDate(startDate);
 
-            Long id = Long.parseLong(locationId) - 135;
-            Optional<Location> OptLocation = locationRepository.findById(id);
-            if (OptLocation.isPresent()) {
-                EmerMsg emerMsg = EmerMsg.builder()
-                        .openapiId(Long.parseLong(openapiId))
-                        .message(message)
-                        .startDate(startDate)
-                        .endDate(endDate)
-                        .location(OptLocation.get())
-                        .build();
+            if (!locationId.contains(",")) {
+                Long id = Long.parseLong(locationId) - 135;
+                Optional<Location> OptLocation = locationRepository.findById(id);
+                String emergencyType = emerMsgUtils.getEmergencyType(message);
+                if (OptLocation.isPresent()) {
+                    EmerMsg emerMsg = EmerMsg.builder()
+                            .openapiId(Long.parseLong(openapiId))
+                            .message(message)
+                            .startDate(startDate)
+                            .endDate(endDate)
+                            .location(OptLocation.get())
+                            .emergencyType(emergencyType)
+                            .build();
 
-                emerMsgService.addEmerMsg(emerMsg);
+                    emerMsgService.addEmerMsg(emerMsg);
+                }
             }
         }
-    }
-
-    private Date StringToDate (String stringDate) throws ParseException {
-        SimpleDateFormat fm = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = fm.parse(stringDate);
-        return date;
-    }
-
-    // TODO : 시작 일자 변경 가능. 현재는 하루 전부터 데이터부터 조회
-    private String getStartDate() {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1);
-        Date date = new Date(cal.getTimeInMillis());
-        SimpleDateFormat transFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        return transFormat.format(date);
-    }
-
-    public Date getEndDate (Date startDateTime) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(startDateTime);
-        cal.add(Calendar.DATE, 2);
-        return cal.getTime();
     }
 }
