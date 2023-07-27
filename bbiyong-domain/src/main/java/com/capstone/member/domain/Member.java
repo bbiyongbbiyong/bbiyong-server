@@ -1,5 +1,6 @@
 package com.capstone.member.domain;
 
+import com.capstone.common.DateTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +14,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Member {
+public class Member extends DateTimeEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
