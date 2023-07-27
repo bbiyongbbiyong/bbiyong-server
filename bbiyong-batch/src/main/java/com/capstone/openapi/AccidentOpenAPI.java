@@ -3,6 +3,7 @@ package com.capstone.openapi;
 import com.capstone.accident.domain.Accident;
 import com.capstone.accident.service.AccidentService;
 import com.capstone.location.service.LocationService;
+import com.capstone.openapi.utils.AccidentUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
@@ -18,8 +19,6 @@ import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import static java.net.URLEncoder.encode;
@@ -42,6 +41,7 @@ public class AccidentOpenAPI implements OpenAPI {
 
     private final XYChangeOpenAPI xyChangeOpenAPI;
     private final LocationService locationService;
+    private final AccidentUtils accidentUtils;
 
     @Override
     public void call() throws IOException, ParseException, org.json.simple.parser.ParseException {
@@ -111,8 +111,8 @@ public class AccidentOpenAPI implements OpenAPI {
             BigDecimal yMap = jsonObject.getBigDecimal("grs80tm_y"); /*Y 좌표*/
             String accidentInfo = String.valueOf(jsonObject.get("acc_info")).replace("\r", "\n"); /*상세 정보*/
 
-            Date startDate = parseDateFormat(intStartDate, intStartTime);
-            Date endDate = parseDateFormat(intEndDate, intEndTime);
+            Date startDate = accidentUtils.parseDateFormat(intStartDate, intStartTime);
+            Date endDate = accidentUtils.parseDateFormat(intEndDate, intEndTime);
 
             String locationName = xyChangeOpenAPI.XYChangeToAddress(xMap, yMap);
 
@@ -127,33 +127,5 @@ public class AccidentOpenAPI implements OpenAPI {
 
             accidentService.addAccident(accident);
         }
-    }
-
-    // Integer "yyyyMMdd" -> Date class 변환
-    private Date parseDateFormat(Object intDate, int intTime) throws ParseException {
-        String strTime = Integer.toString(intTime);
-        String strHour, strMin;
-
-        if (strTime.length() == 3 || strTime.length() == 5) {
-            strHour = strTime.substring(0, 1);
-            strMin = strTime.substring(1, 3);
-        }
-        else if (strTime.length() == 1) {
-            strHour = "0";
-            strMin = "0";
-        }
-        else {
-            strHour = strTime.substring(0, 2);
-            strMin = strTime.substring(2, 4);
-        }
-
-        SimpleDateFormat fm = new SimpleDateFormat("yyyyMMdd");
-        Calendar cal = Calendar.getInstance();
-        Date tempDate = fm.parse(String.valueOf(intDate));
-        cal.setTime(tempDate);
-        cal.add(Calendar.HOUR_OF_DAY, Integer.parseInt(strHour));
-        cal.add(Calendar.MINUTE, Integer.parseInt(strMin));
-
-        return cal.getTime();
     }
 }
