@@ -35,6 +35,6 @@ public class AnalyticsService {
         int accidentYdy = accidentRepository.countYdyAccidentByDate(cal.getTime());
         int accidentTdy = accidentRepository.countTdyAccidentByDate();
 
-        return ChartDataResponseDTO.from(emergencyMsgYdy, emergencyMsgTdy, metroYdy, metroTdy, accidentYdy, accidentTdy);
+        return ChartDataResponseDTO.of(emergencyMsgYdy, emergencyMsgTdy, metroYdy, metroTdy, accidentYdy, accidentTdy);
     }
 }

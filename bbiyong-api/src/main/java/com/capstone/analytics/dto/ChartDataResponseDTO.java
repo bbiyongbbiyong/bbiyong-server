@@ -19,7 +19,7 @@ public class ChartDataResponseDTO {
     private int accidentYdy;
     private int accidentTdy;
 
-    public static ChartDataResponseDTO from (int emergencyMsgYdy, int emergencyMsgTdy, int metroYdy, int metroTdy, int accidentYdy, int accidentTdy) {
+    public static ChartDataResponseDTO of (int emergencyMsgYdy, int emergencyMsgTdy, int metroYdy, int metroTdy, int accidentYdy, int accidentTdy) {
         return ChartDataResponseDTO.builder()
                 .emergencyMsgYdy(emergencyMsgYdy)
                 .emergencyMsgTdy(emergencyMsgTdy)
