@@ -3,7 +3,7 @@ package com.capstone.member.service;
 import com.capstone.common.exception.BusinessException;
 import com.capstone.common.exception.ErrorCode;
 import com.capstone.member.domain.Member;
-import com.capstone.member.dto.MemberDto;
+import com.capstone.member.dto.resonse.MemberInfoResponseDto;
 import com.capstone.member.repository.MemberRepository;
 import com.capstone.security.service.CustomUserService;
 import com.capstone.security.util.JwtTokenUtils;
@@ -28,7 +28,7 @@ public class AuthService {
     private Long expiredTimeMs;
 
     @Transactional
-    public MemberDto join(String username, String password) {
+    public MemberInfoResponseDto join(String username, String password) {
         validateUnique(username);
 
         var member = Member.builder()
@@ -38,7 +38,7 @@ public class AuthService {
 
         var savedMember = memberRepository.save(member);
 
-        return MemberDto.of(savedMember);
+        return MemberInfoResponseDto.of(savedMember);
     }
 
     public String login(String username, String password) {

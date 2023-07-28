@@ -3,7 +3,6 @@ package com.capstone.member.controller;
 import com.capstone.common.dto.BasicResponse;
 import com.capstone.member.dto.request.JoinRequestDto;
 import com.capstone.member.dto.request.LoginRequestDto;
-import com.capstone.member.dto.resonse.MemberInfoResponseDto;
 import com.capstone.member.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,12 +23,8 @@ public class AuthController {
     @PostMapping("/join")
     @Operation(summary = "회원 가입")
     public ResponseEntity<BasicResponse> join(@RequestBody JoinRequestDto joinRequestDto) {
-        var memberDto = authService.join(joinRequestDto.getUsername(), joinRequestDto.getPassword());
-        return basicResponse.ok(
-                MemberInfoResponseDto.builder()
-                        .userId(memberDto.getId())
-                        .username(memberDto.getUsername())
-                        .build());
+        var memberInfoResponseDto = authService.join(joinRequestDto.getUsername(), joinRequestDto.getPassword());
+        return basicResponse.ok(memberInfoResponseDto.getUsername());
     }
 
     @PostMapping("/login")
