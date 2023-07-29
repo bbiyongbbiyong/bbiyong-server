@@ -1,6 +1,6 @@
 package com.capstone.security.service;
 
-import com.capstone.common.exception.BusinessException;
+import com.capstone.common.exception.EntityNotFoundException;
 import com.capstone.common.exception.ErrorCode;
 import com.capstone.member.dto.MemberDto;
 import com.capstone.member.repository.MemberRepository;
@@ -16,13 +16,9 @@ public class CustomUserService implements UserDetailsService {
 
     @Override
     public MemberDto loadUserByUsername(String username) {
-        try {
-            return memberRepository.findByUsername(username)
-                    .map(MemberDto::of)
-                    .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return memberRepository.findByUsername(username)
+                .map(MemberDto::of)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
     }
 
 }
