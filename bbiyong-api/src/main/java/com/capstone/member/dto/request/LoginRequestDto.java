@@ -5,8 +5,7 @@ import lombok.Getter;
 @Getter
 public class LoginRequestDto {
 
-    private String id;
-
+    private String accountId;
     private String password;
 
 }
