@@ -5,8 +5,7 @@ import lombok.Getter;
 @Getter
 public class JoinRequestDto {
 
-    private String username;
-
+    private String id;
     private String password;
 
 }
