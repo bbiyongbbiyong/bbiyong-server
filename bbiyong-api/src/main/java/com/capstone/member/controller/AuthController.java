@@ -23,14 +23,14 @@ public class AuthController {
     @PostMapping("/join")
     @Operation(summary = "회원 가입")
     public ResponseEntity<BasicResponse> join(@RequestBody JoinRequestDto joinRequestDto) {
-        var memberInfoResponseDto = authService.join(joinRequestDto.getId(), joinRequestDto.getPassword());
+        var memberInfoResponseDto = authService.join(joinRequestDto.getAccountId(), joinRequestDto.getPassword());
         return basicResponse.ok(memberInfoResponseDto.getUsername());
     }
 
     @PostMapping("/login")
     @Operation(summary = "로그인")
     public ResponseEntity<BasicResponse> login(@RequestBody LoginRequestDto loginRequestDto) {
-        String token = authService.login(loginRequestDto.getId(), loginRequestDto.getPassword());
+        String token = authService.login(loginRequestDto.getAccountId(), loginRequestDto.getPassword());
         return basicResponse.ok(token);
     }
 
