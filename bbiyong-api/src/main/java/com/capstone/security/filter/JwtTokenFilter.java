@@ -32,14 +32,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         try {
             final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
             if(header == null || !header.startsWith("Bearer ")) {
-                log.error("Error occurs while getting header. Header is null or invalid {}", request.getRequestURL());
+//                log.error("Error occurs while getting header. Header is null or invalid {}", request.getRequestURL());
                 filterChain.doFilter(request, response);
                 return;
             }
             token = header.split(" ")[1].trim();
 
             if(JwtTokenUtils.isExpired(token, key)) {
-                log.error("Key us expired");
+//                log.error("Key us expired");
                 filterChain.doFilter(request, response);
                 return;
             }
@@ -53,7 +53,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
         } catch (RuntimeException e) {
-            log.error("Error occurs while validating. {}", e.toString());
+//            log.error("Error occurs while validating. {}", e.toString());
             filterChain.doFilter(request, response);
             return;
         }
