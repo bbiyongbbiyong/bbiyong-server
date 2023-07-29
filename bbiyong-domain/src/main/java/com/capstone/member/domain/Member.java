@@ -27,6 +27,13 @@ public class Member extends DateTimeEntity {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private boolean notifyOn;
+
     // TODO: List<Token> 생성
+
+    public void update(boolean notifyOn) {
+        this.notifyOn = notifyOn;
+    }
 
 }
