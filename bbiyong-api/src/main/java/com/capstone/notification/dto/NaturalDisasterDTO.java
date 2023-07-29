@@ -33,4 +33,27 @@ public class NaturalDisasterDTO {
     private boolean gale;
     private boolean naturalEtc;
 
+    public static NaturalDisasterDTO of (boolean typhoon, boolean dry,boolean forestFire, boolean landslide, boolean flood, boolean downpour, boolean heatWave, boolean fog, boolean windWave, boolean fineDust, boolean springTide, boolean drought, boolean heavySnow, boolean tsunami, boolean earthquake, boolean coldWave, boolean yellowDust, boolean gale, boolean naturalEtc) {
+        return NaturalDisasterDTO.builder()
+                .typhoon(typhoon)
+                .dry(dry)
+                .forestFires(forestFire)
+                .landslide(landslide)
+                .flood(flood)
+                .downpour(downpour)
+                .heatWave(heatWave)
+                .fog(fog)
+                .windWave(windWave)
+                .fineDust(fineDust)
+                .springTide(springTide)
+                .drought(drought)
+                .heavySnow(heavySnow)
+                .tsunami(tsunami)
+                .earthquake(earthquake)
+                .coldWave(coldWave)
+                .yellowDust(yellowDust)
+                .gale(gale)
+                .naturalEtc(naturalEtc)
+                .build();
+    }
 }

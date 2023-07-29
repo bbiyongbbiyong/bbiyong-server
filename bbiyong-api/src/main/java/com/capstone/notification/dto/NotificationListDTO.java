@@ -18,4 +18,12 @@ public class NotificationListDTO {
     private SubwayDTO subwayInformation;
     private RoadControllerDTO roadControlInformation;
 
+    public static NotificationListDTO of (NaturalDisasterDTO naturalDisaster, SocialDisasterDTO socialDisaster, SubwayDTO subwayInformation, RoadControllerDTO roadControlInformation) {
+        return NotificationListDTO.builder()
+                .naturalDisaster(naturalDisaster)
+                .socialDisaster(socialDisaster)
+                .subwayInformation(subwayInformation)
+                .roadControlInformation(roadControlInformation)
+                .build();
+    }
 }

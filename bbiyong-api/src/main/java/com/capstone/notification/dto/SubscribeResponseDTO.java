@@ -14,10 +14,10 @@ public class SubscribeResponseDTO {
     private boolean notifyOn;
     private NotificationListDTO notificationList;
 
-    public static SubscribeResponseDTO from (SubscribeRequestDTO requestDTO) {
+    public static SubscribeResponseDTO of (boolean notifyOn, NotificationListDTO notificationList) {
         return SubscribeResponseDTO.builder()
-                .notifyOn(requestDTO.isNotifyOn())
-                .notificationList(requestDTO.getNotificationList())
+                .notifyOn(notifyOn)
+                .notificationList(notificationList)
                 .build();
     }
 }

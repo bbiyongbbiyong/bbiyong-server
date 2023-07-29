@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SubscribeRequestDTO {
 
-    private boolean notifyOn;
     private Long memberId;
     private NotificationListDTO notificationList;
 

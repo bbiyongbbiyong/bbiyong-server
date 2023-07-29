@@ -5,14 +5,12 @@ import com.capstone.common.exception.ErrorCode;
 import com.capstone.member.domain.Member;
 import com.capstone.member.repository.MemberRepository;
 import com.capstone.notification.domain.Subscribe;
-import com.capstone.notification.dto.SubscribeRequestDTO;
+import com.capstone.notification.dto.*;
 import com.capstone.notification.repository.SubscribeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.capstone.notification.dto.SubscribeResponseDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +22,108 @@ public class NotificationService {
 
     private final SubscribeRepository subscribeRepository;
     private final MemberRepository memberRepository;
+
+    @Transactional
+    public void updateOnOffNotify(Long memberId, NotifyOnRequestDTO requestDTO) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
+
+        member.update(requestDTO.isNotifyOn());
+    }
+
+    @Transactional
+    public SubscribeResponseDTO getTopic(Long memberId) {
+        List<Subscribe> subscribeList = subscribeRepository.findByMemberId(memberId);
+        if (subscribeList.isEmpty())
+            return null;
+
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
+
+        NaturalDisasterDTO naturalDisasterDTO = NaturalDisasterDTO.of(
+                subscribeRepository.findByMemberIdAndTopic(memberId, "typhoon").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "dry").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "forestFires").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "landslide").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "flood").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "downpour").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "heatWave").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "fog").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "windWave").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "fineDust").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "springTide").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "drought").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "heavySnow").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "tsunami").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "earthquake").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "coldWave").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "yellowDust").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "gale").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "naturalEtc").isSubscribe()
+        );
+
+        SocialDisasterDTO socialDisasterDTO = SocialDisasterDTO.of(
+                subscribeRepository.findByMemberIdAndTopic(memberId, "trafficControl").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "fireAlert").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "collapse").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "explosion").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "trafficAccident").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "envPollution").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "energy").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "communication").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "medical").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "waterAlert").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "epidemic").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "blackout").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "gas").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "missing").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "traffic").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "socialEtc").isSubscribe()
+        );
+
+        SubwayDTO subwayDTO = SubwayDTO.of(
+                subscribeRepository.findByMemberIdAndTopic(memberId, "line1").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "line2").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "line3").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "line4").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "line5").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "line6").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "line7").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "line8").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "line9").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "incheonLine1").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "incheonLine2").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "westcoastLine").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "linegeongangLine1").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "airportLine").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "bundangLine").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "dxLine").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "uiLine").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "yonginLine").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "ulrtLine").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "gimpoLine").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "sillimLine").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "geongchunLine").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "gyoungiLine").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "lineEtc").isSubscribe()
+        );
+
+        RoadControllerDTO roadControllerDTO = RoadControllerDTO.of(
+                subscribeRepository.findByMemberIdAndTopic(memberId, "roadAccident").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "roadWorks").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "rallyEvent").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "roadEtc").isSubscribe()
+        );
+
+        NotificationListDTO notificationListDTO = NotificationListDTO.of(
+                naturalDisasterDTO,
+                socialDisasterDTO,
+                subwayDTO,
+                roadControllerDTO
+        );
+
+        return new SubscribeResponseDTO(member.isNotifyOn(), notificationListDTO);
+    }
 
     @Transactional
     public void saveTopic(SubscribeRequestDTO requestDTO) {
@@ -418,6 +518,14 @@ public class NotificationService {
                     .build();
             subscribes.add(westcoastLine);
 
+            Subscribe linegeongangLine1 = Subscribe.builder()
+                    .type("subwayInformation")
+                    .topic("linegeongangLine1")
+                    .isSubscribe(requestDTO.getNotificationList().getSubwayInformation().isLinegeongangLine1())
+                    .member(member)
+                    .build();
+            subscribes.add(linegeongangLine1);
+
             Subscribe geongangLine = Subscribe.builder()
                     .type("subwayInformation")
                     .topic("geongangLine")
@@ -539,8 +647,6 @@ public class NotificationService {
             subscribes.add(roadEtc);
 
             subscribeRepository.saveAll(subscribes);
-
-//            return SubscribeResponseDTO.from(requestDTO);
         }
 
         for(int i = 0; i < subscribeList.size(); i++) {
@@ -675,5 +781,5 @@ public class NotificationService {
             else if (sub.getTopic().equals("roadEtc") && requestDTO.getNotificationList().getRoadControlInformation().isRoadEtc() != sub.isSubscribe())
                 sub.update(requestDTO.getNotificationList().getRoadControlInformation().isRoadEtc());
         }
-    };
+    }
 }

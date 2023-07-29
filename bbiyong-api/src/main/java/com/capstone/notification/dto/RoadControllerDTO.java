@@ -18,4 +18,12 @@ public class RoadControllerDTO {
     private boolean rallyEvent;
     private boolean roadEtc;
 
+    public static RoadControllerDTO of (boolean roadAccident, boolean roadWorks, boolean rallyEvent, boolean roadEtc) {
+        return RoadControllerDTO.builder()
+                .roadAccident(roadAccident)
+                .roadWorks(roadWorks)
+                .rallyEvent(rallyEvent)
+                .roadEtc(roadEtc)
+                .build();
+    }
 }
