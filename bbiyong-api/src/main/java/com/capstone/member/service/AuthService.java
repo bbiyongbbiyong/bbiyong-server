@@ -2,6 +2,7 @@ package com.capstone.member.service;
 
 import com.capstone.common.exception.BusinessException;
 import com.capstone.common.exception.ErrorCode;
+import com.capstone.common.exception.InvalidValueException;
 import com.capstone.member.domain.Member;
 import com.capstone.member.dto.resonse.MemberInfoResponseDto;
 import com.capstone.member.repository.MemberRepository;
@@ -45,7 +46,7 @@ public class AuthService {
         var userDto = customUserService.loadUserByUsername(username);
 
         if (!passwordEncoder.matches(password, userDto.getPassword())) {
-            throw new BusinessException(ErrorCode.INVALID_PASSWORD);
+            throw new InvalidValueException(ErrorCode.INVALID_PASSWORD);
         }
 
         return JwtTokenUtils.generateToken(username, secretKey, expiredTimeMs);
