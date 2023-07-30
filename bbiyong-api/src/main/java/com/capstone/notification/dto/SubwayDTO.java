@@ -25,7 +25,7 @@ public class SubwayDTO {
     private boolean incheonLine1;
     private boolean incheonLine2;
     private boolean westcoastLine;
-    private boolean linegeongangLine1;
+    private boolean geongangLine;
     private boolean airportLine;
     private boolean bundangLine;
     private boolean dxLine;
@@ -38,7 +38,7 @@ public class SubwayDTO {
     private boolean gyoungiLine;
     private boolean lineEtc;
 
-    public static SubwayDTO of (boolean line1, boolean line2, boolean line3, boolean line4, boolean line5, boolean line6, boolean line7, boolean line8, boolean line9, boolean incheonLine1, boolean incheonLine2, boolean westcoastLine, boolean linegeongangLine1, boolean airportLine, boolean bundangLin, boolean dxLine, boolean uiLine, boolean yonginLine, boolean ulrtLine, boolean gimpoLine, boolean sillimLine, boolean geongchunLine, boolean gyoungiLine, boolean lineEtc) {
+    public static SubwayDTO of (boolean line1, boolean line2, boolean line3, boolean line4, boolean line5, boolean line6, boolean line7, boolean line8, boolean line9, boolean incheonLine1, boolean incheonLine2, boolean westcoastLine, boolean geongangLine, boolean airportLine, boolean bundangLin, boolean dxLine, boolean uiLine, boolean yonginLine, boolean ulrtLine, boolean gimpoLine, boolean sillimLine, boolean geongchunLine, boolean gyoungiLine, boolean lineEtc) {
         return SubwayDTO.builder()
                 .line1(line1)
                 .line2(line2)
@@ -52,7 +52,7 @@ public class SubwayDTO {
                 .incheonLine1(incheonLine1)
                 .incheonLine2(incheonLine2)
                 .westcoastLine(westcoastLine)
-                .linegeongangLine1(linegeongangLine1)
+                .geongangLine(geongangLine)
                 .airportLine(airportLine)
                 .bundangLine(bundangLin)
                 .dxLine(dxLine)
