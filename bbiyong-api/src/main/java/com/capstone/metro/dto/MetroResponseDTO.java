@@ -15,7 +15,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder(access = PRIVATE)
 public class MetroResponseDTO {
 
-    private String metroInfo;
+    private String accidentInfo;
     private String metroTopic;
     @JsonFormat(
             shape = JsonFormat.Shape.STRING,
@@ -26,7 +26,7 @@ public class MetroResponseDTO {
 
     public static MetroResponseDTO from(Metro metro) {
         return MetroResponseDTO.builder()
-                .metroInfo(metro.getText())
+                .accidentInfo(metro.getText())
                 .metroTopic(metro.getMetroTopic())
                 .startDate(metro.getStartDate())
                 .build();
