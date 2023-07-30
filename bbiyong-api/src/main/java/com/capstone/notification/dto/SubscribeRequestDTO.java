@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class SubscribeRequestDTO {
 
     private Long memberId;
+    private boolean notifyOn;
     private NotificationListDTO notificationList;
 
 }

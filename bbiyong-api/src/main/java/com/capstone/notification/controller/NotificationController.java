@@ -1,8 +1,6 @@
 package com.capstone.notification.controller;
 
-import com.capstone.accident.service.AccidentService;
 import com.capstone.common.dto.BasicResponse;
-import com.capstone.notification.dto.NotifyOnRequestDTO;
 import com.capstone.notification.dto.SubscribeRequestDTO;
 import com.capstone.notification.service.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,12 +33,5 @@ public class NotificationController {
         return basicResponse.ok(
                 notificationService.getTopic(memberId)
         );
-    }
-
-    @PostMapping("/{memberId}/onoff")
-    @Operation(summary = "전체 알람 on/off", description = "전체 알람 on/off를 설정합니다.")
-    public ResponseEntity<BasicResponse> updateOnOffNotify(@PathVariable("memberId") Long memberId, @RequestBody NotifyOnRequestDTO requestDTO) {
-        notificationService.updateOnOffNotify(memberId, requestDTO);
-        return basicResponse.noContent();
     }
 }

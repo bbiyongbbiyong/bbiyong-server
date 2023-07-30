@@ -24,14 +24,6 @@ public class NotificationService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public void updateOnOffNotify(Long memberId, NotifyOnRequestDTO requestDTO) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
-
-        member.update(requestDTO.isNotifyOn());
-    }
-
-    @Transactional
     public SubscribeResponseDTO getTopic(Long memberId) {
         List<Subscribe> subscribeList = subscribeRepository.findByMemberId(memberId);
         if (subscribeList.isEmpty())
@@ -122,7 +114,7 @@ public class NotificationService {
                 roadControllerDTO
         );
 
-        return new SubscribeResponseDTO(member.isNotifyOn(), notificationListDTO);
+        return new SubscribeResponseDTO(notificationListDTO);
     }
 
     @Transactional
@@ -640,6 +632,8 @@ public class NotificationService {
 
             subscribeRepository.saveAll(subscribes);
         }
+
+        member.update(requestDTO.isNotifyOn());
 
         for(int i = 0; i < subscribeList.size(); i++) {
             Subscribe sub = subscribeRepository.findByMemberIdAndTopic(requestDTO.getMemberId(), subscribeList.get(i).getTopic());

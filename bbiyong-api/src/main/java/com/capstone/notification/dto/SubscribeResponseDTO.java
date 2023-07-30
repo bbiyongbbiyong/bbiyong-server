@@ -11,12 +11,10 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder(access = PRIVATE)
 public class SubscribeResponseDTO {
 
-    private boolean notifyOn;
     private NotificationListDTO notificationList;
 
-    public static SubscribeResponseDTO of (boolean notifyOn, NotificationListDTO notificationList) {
+    public static SubscribeResponseDTO of (NotificationListDTO notificationList) {
         return SubscribeResponseDTO.builder()
-                .notifyOn(notifyOn)
                 .notificationList(notificationList)
                 .build();
     }
