@@ -94,7 +94,7 @@ public class NotificationService {
                 subscribeRepository.findByMemberIdAndTopic(memberId, "incheonLine1").isSubscribe(),
                 subscribeRepository.findByMemberIdAndTopic(memberId, "incheonLine2").isSubscribe(),
                 subscribeRepository.findByMemberIdAndTopic(memberId, "westcoastLine").isSubscribe(),
-                subscribeRepository.findByMemberIdAndTopic(memberId, "linegeongangLine1").isSubscribe(),
+                subscribeRepository.findByMemberIdAndTopic(memberId, "geongangLine").isSubscribe(),
                 subscribeRepository.findByMemberIdAndTopic(memberId, "airportLine").isSubscribe(),
                 subscribeRepository.findByMemberIdAndTopic(memberId, "bundangLine").isSubscribe(),
                 subscribeRepository.findByMemberIdAndTopic(memberId, "dxLine").isSubscribe(),
@@ -518,18 +518,10 @@ public class NotificationService {
                     .build();
             subscribes.add(westcoastLine);
 
-            Subscribe linegeongangLine1 = Subscribe.builder()
-                    .type("subwayInformation")
-                    .topic("linegeongangLine1")
-                    .isSubscribe(requestDTO.getNotificationList().getSubwayInformation().isLinegeongangLine1())
-                    .member(member)
-                    .build();
-            subscribes.add(linegeongangLine1);
-
             Subscribe geongangLine = Subscribe.builder()
                     .type("subwayInformation")
                     .topic("geongangLine")
-                    .isSubscribe(requestDTO.getNotificationList().getSubwayInformation().isGeongchunLine())
+                    .isSubscribe(requestDTO.getNotificationList().getSubwayInformation().isGeongangLine())
                     .member(member)
                     .build();
             subscribes.add(geongangLine);
@@ -750,8 +742,8 @@ public class NotificationService {
                 sub.update(requestDTO.getNotificationList().getSubwayInformation().isIncheonLine2());
             else if (sub.getTopic().equals("westcoastLine") && requestDTO.getNotificationList().getSubwayInformation().isWestcoastLine() != sub.isSubscribe())
                 sub.update(requestDTO.getNotificationList().getSubwayInformation().isWestcoastLine());
-            else if (sub.getTopic().equals("linegeongangLine1") && requestDTO.getNotificationList().getSubwayInformation().isLinegeongangLine1() != sub.isSubscribe())
-                sub.update(requestDTO.getNotificationList().getSubwayInformation().isLinegeongangLine1());
+            else if (sub.getTopic().equals("geongangLine") && requestDTO.getNotificationList().getSubwayInformation().isGeongangLine() != sub.isSubscribe())
+                sub.update(requestDTO.getNotificationList().getSubwayInformation().isGeongangLine());
             else if (sub.getTopic().equals("airportLine") && requestDTO.getNotificationList().getSubwayInformation().isAirportLine() != sub.isSubscribe())
                 sub.update(requestDTO.getNotificationList().getSubwayInformation().isAirportLine());
             else if (sub.getTopic().equals("bundangLine") && requestDTO.getNotificationList().getSubwayInformation().isBundangLine() != sub.isSubscribe())
@@ -781,5 +773,5 @@ public class NotificationService {
             else if (sub.getTopic().equals("roadEtc") && requestDTO.getNotificationList().getRoadControlInformation().isRoadEtc() != sub.isSubscribe())
                 sub.update(requestDTO.getNotificationList().getRoadControlInformation().isRoadEtc());
         }
-    }
+    };
 }
