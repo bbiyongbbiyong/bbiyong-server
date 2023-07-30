@@ -11,6 +11,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Builder(access = PRIVATE)
 public class SubscribeResponseDTO {
 
+    private boolean notifyOn;
     private NotificationListDTO notificationList;
 
     public static SubscribeResponseDTO of (NotificationListDTO notificationList) {

@@ -114,7 +114,7 @@ public class NotificationService {
                 roadControllerDTO
         );
 
-        return new SubscribeResponseDTO(notificationListDTO);
+        return new SubscribeResponseDTO(member.isNotifyOn(), notificationListDTO);
     }
 
     @Transactional
