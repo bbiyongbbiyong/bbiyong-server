@@ -34,7 +34,9 @@ public class SecurityConfig {
         return http
                 .sessionManagement().sessionCreationPolicy(STATELESS)
                 .and().cors()
-                .and().csrf().disable().authorizeHttpRequests()
+                .and().csrf().disable()
+                .authorizeHttpRequests()
+                .requestMatchers("/notification/**").authenticated()
                 .anyRequest().permitAll().and()
                 .formLogin().disable()
                 .addFilterBefore(new JwtTokenFilter(key, customUserService), UsernamePasswordAuthenticationFilter.class)
