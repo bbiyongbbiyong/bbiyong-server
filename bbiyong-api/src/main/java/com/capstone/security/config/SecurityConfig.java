@@ -2,7 +2,6 @@ package com.capstone.security.config;
 
 import com.capstone.security.filter.JwtTokenFilter;
 import com.capstone.security.service.CustomUserService;
-import com.capstone.security.util.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -31,17 +30,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
+        http
                 .sessionManagement().sessionCreationPolicy(STATELESS)
                 .and().cors()
-                .and().csrf().disable().authorizeHttpRequests()
+                .and().csrf().disable()
+                .authorizeHttpRequests()
+                .requestMatchers("/notification/**").authenticated()
                 .anyRequest().permitAll().and()
-                .formLogin().disable()
-                .addFilterBefore(new JwtTokenFilter(key, customUserService), UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling()
-                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-                .and()
-                .build();
+                .anonymous().and()
+                .formLogin().disable();
+        http
+                .addFilterBefore(new JwtTokenFilter(key, customUserService), UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
     }
 
 }
