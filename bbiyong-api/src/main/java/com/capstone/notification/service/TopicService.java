@@ -629,8 +629,6 @@ public class TopicService {
             subscribeRepository.saveAll(subscribes);
         }
 
-        member.update(requestDTO.isNotifyOn());
-
         for(int i = 0; i < subscribeList.size(); i++) {
             Subscribe sub = subscribeRepository.findByMemberIdAndTopic(member.getId(), subscribeList.get(i).getTopic());
 
@@ -763,5 +761,8 @@ public class TopicService {
             else if (sub.getTopic().equals("roadEtc") && requestDTO.getNotificationList().getRoadControlInformation().isRoadEtc() != sub.isSubscribe())
                 sub.update(requestDTO.getNotificationList().getRoadControlInformation().isRoadEtc());
         }
-    };
+
+        member.update(requestDTO.isNotifyOn());
+        memberRepository.save(member);
+    }
 }
