@@ -21,7 +21,6 @@ public class TopicService {
     private final SubscribeRepository subscribeRepository;
     private final MemberRepository memberRepository;
 
-    @Transactional
     public SubscribeResponseDTO getTopic(Long memberId) {
         List<Subscribe> subscribeList = subscribeRepository.findByMemberId(memberId);
         if (subscribeList.isEmpty())
