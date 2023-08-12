@@ -1,8 +1,8 @@
-package com.capstone.security.service;
+package com.capstone.security.provider;
 
 import com.capstone.common.exception.EntityNotFoundException;
 import com.capstone.common.exception.ErrorCode;
-import com.capstone.member.dto.MemberDto;
+import com.capstone.member.domain.Member;
 import com.capstone.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,10 +15,10 @@ public class CustomUserService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     @Override
-    public MemberDto loadUserByUsername(String username) {
-        return memberRepository.findByUsername(username)
-                .map(MemberDto::of)
+    public SecurityUserDetails loadUserByUsername(String username) {
+        Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
+        return new SecurityUserDetails(member);
     }
 
 }
