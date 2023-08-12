@@ -1,7 +1,7 @@
 package com.capstone.security.config;
 
 import com.capstone.security.filter.JwtTokenFilter;
-import com.capstone.security.service.CustomUserService;
+import com.capstone.security.provider.CustomUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
