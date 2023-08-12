@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .and().cors()
                 .and().csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/notification/**").authenticated()
+                .requestMatchers("/topic").authenticated()
                 .anyRequest().permitAll().and()
                 .anonymous().and()
                 .formLogin().disable();
