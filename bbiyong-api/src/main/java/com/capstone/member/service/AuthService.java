@@ -4,9 +4,10 @@ import com.capstone.common.exception.BusinessException;
 import com.capstone.common.exception.ErrorCode;
 import com.capstone.common.exception.InvalidValueException;
 import com.capstone.member.domain.Member;
+import com.capstone.security.provider.SecurityUserDetails;
 import com.capstone.member.dto.resonse.MemberInfoResponseDto;
 import com.capstone.member.repository.MemberRepository;
-import com.capstone.security.service.CustomUserService;
+import com.capstone.security.provider.CustomUserService;
 import com.capstone.security.util.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,9 +44,9 @@ public class AuthService {
     }
 
     public String login(String username, String password) {
-        var userDto = customUserService.loadUserByUsername(username);
+        SecurityUserDetails securityUserDetails = customUserService.loadUserByUsername(username);
 
-        if (!passwordEncoder.matches(password, userDto.getPassword())) {
+        if (!passwordEncoder.matches(password, securityUserDetails.getPassword())) {
             throw new InvalidValueException(ErrorCode.INVALID_PASSWORD);
         }
 

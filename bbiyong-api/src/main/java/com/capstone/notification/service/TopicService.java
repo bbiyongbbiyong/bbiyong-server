@@ -8,17 +8,15 @@ import com.capstone.notification.domain.Subscribe;
 import com.capstone.notification.dto.*;
 import com.capstone.notification.repository.SubscribeRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class NotificationService {
+public class TopicService {
 
     private final SubscribeRepository subscribeRepository;
     private final MemberRepository memberRepository;
@@ -118,10 +116,8 @@ public class NotificationService {
     }
 
     @Transactional
-    public void saveTopic(SubscribeRequestDTO requestDTO) {
-        List<Subscribe> subscribeList = subscribeRepository.findByMemberId(requestDTO.getMemberId());
-        Member member = memberRepository.findById(requestDTO.getMemberId())
-                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
+    public void saveTopic(Member member, SubscribeRequestDTO requestDTO) {
+        List<Subscribe> subscribeList = subscribeRepository.findByMemberId(member.getId());
 
         if (subscribeList.isEmpty()) {
             List<Subscribe> subscribes = new ArrayList<>();
@@ -636,7 +632,7 @@ public class NotificationService {
         member.update(requestDTO.isNotifyOn());
 
         for(int i = 0; i < subscribeList.size(); i++) {
-            Subscribe sub = subscribeRepository.findByMemberIdAndTopic(requestDTO.getMemberId(), subscribeList.get(i).getTopic());
+            Subscribe sub = subscribeRepository.findByMemberIdAndTopic(member.getId(), subscribeList.get(i).getTopic());
 
             if (sub.getTopic().equals("typhoon") && requestDTO.getNotificationList().getNaturalDisaster().isTyphoon() != sub.isSubscribe())
                 sub.update(requestDTO.getNotificationList().getNaturalDisaster().isTyphoon());

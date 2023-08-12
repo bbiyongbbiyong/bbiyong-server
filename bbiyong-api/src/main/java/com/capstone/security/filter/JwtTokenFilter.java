@@ -1,7 +1,7 @@
 package com.capstone.security.filter;
 
-import com.capstone.member.dto.MemberDto;
-import com.capstone.security.service.CustomUserService;
+import com.capstone.security.provider.SecurityUserDetails;
+import com.capstone.security.provider.CustomUserService;
 import com.capstone.security.util.JwtTokenUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -45,7 +45,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             }
 
             String userName = JwtTokenUtils.getUserName(token, key);
-            MemberDto user = customUserService.loadUserByUsername(userName);
+            SecurityUserDetails user = customUserService.loadUserByUsername(userName);
 
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
