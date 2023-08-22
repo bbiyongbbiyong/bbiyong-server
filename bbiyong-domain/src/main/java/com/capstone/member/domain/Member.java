@@ -1,12 +1,14 @@
 package com.capstone.member.domain;
 
 import com.capstone.common.DateTimeEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.capstone.notification.domain.FcmToken;
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Getter
@@ -30,7 +32,8 @@ public class Member extends DateTimeEntity {
     @Column(nullable = false)
     private boolean notifyOn;
 
-    // TODO: List<Token> 생성
+    @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
+    private List<FcmToken> records = new ArrayList();
 
     public void update(boolean notifyOn) {
         this.notifyOn = notifyOn;
