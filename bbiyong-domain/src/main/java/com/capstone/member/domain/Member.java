@@ -33,7 +33,7 @@ public class Member extends DateTimeEntity {
     private boolean notifyOn;
 
     @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
-    private List<FcmToken> records = new ArrayList();
+    private List<FcmToken> fcmTokens = new ArrayList();
 
     public void update(boolean notifyOn) {
         this.notifyOn = notifyOn;
