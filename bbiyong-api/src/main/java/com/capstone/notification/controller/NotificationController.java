@@ -24,7 +24,7 @@ public class NotificationController {
     private final NotificationService notificationService;
     private final BasicResponse basicResponse = new BasicResponse();
 
-    @PostMapping
+    @PostMapping("/fcmtoken")
     @Operation(summary = "fcm 토큰 저장", description = "fcm 토큰을 저장합니다.")
     public ResponseEntity<BasicResponse> saveFcmToken(
             @ReqMember SecurityUserDetails securityUserDetails,
