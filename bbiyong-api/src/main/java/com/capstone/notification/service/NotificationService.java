@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class NotificationService {
@@ -15,11 +17,16 @@ public class NotificationService {
     private final FcmTokenRepository fcmTokenRepository;
     @Transactional
     public void saveFcmToken(Member member, FcmTokenRequestDTO requestDTO) {
-        var fcmToken = FcmToken.builder()
-                .token(requestDTO.getToken())
-                .member(member)
-                .build();
+        Optional<FcmToken> token = fcmTokenRepository.findByMemberAndToken(member, requestDTO.getToken());
 
-        fcmTokenRepository.save(fcmToken);
+        if (token.isEmpty())
+        {
+            var fcmToken = FcmToken.builder()
+                    .token(requestDTO.getToken())
+                    .member(member)
+                    .build();
+
+            fcmTokenRepository.save(fcmToken);
+        }
     }
 }
