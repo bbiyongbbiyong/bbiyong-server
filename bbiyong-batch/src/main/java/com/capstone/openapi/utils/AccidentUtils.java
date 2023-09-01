@@ -6,13 +6,13 @@ import org.springframework.stereotype.Component;
 public class AccidentUtils {
 
     public String getAccidentTopic(String type) {
-        if (type == "A04")
-            return "road_works";
-        else if (type == "A10")
-            return "rally_event";
-        else if (type == "A11" || type == "A12" || type == "A13")
-            return "road_etc";
+        if (type.equals("A04"))
+            return "roadWorks";
+        else if (type.equals("A10"))
+            return "rallyEvent";
+        else if (type.equals("A11") || type.equals("A12") || type.equals("A13"))
+            return "roadEtc";
         else
-            return "road_accident";
+            return "roadAccident";
     }
 }
