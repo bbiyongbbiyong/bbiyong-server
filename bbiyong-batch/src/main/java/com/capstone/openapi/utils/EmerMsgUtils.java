@@ -19,7 +19,7 @@ public class EmerMsgUtils {
         Optional<Disaster> topic = disasterRepository.findEnTopicByKrTopic(message);
         if (topic.isPresent())
             return topic.get().getEnTopic();
-        return "natural_etc";
+        return "naturalEtc";
     }
 
     public String getEmergencyType(String message) {

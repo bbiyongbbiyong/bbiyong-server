@@ -18,7 +18,7 @@ public class AccidentResponseDTO {
     @JsonFormat(
             shape = JsonFormat.Shape.STRING,
             pattern = "yyyy.MM.dd HH:mm",
-            locale = "Asia/Seoul"
+            timezone = "GMT+9"
     )
     private Date startDate;
 
