@@ -106,13 +106,20 @@ public class EmerMsgOpenAPI implements OpenAPI {
             String locationId = String.valueOf(jsonObject.get("location_id"));
             String message = String.valueOf(jsonObject.get("msg"));
             String strStartDate = String.valueOf(jsonObject.get("create_date"));
-
             Date startDate = dateUtils.StringToDate(strStartDate);
             Date endDate = dateUtils.getEndDate(startDate);
 
-            if (!locationId.contains(",")) {
+            List<Long> ids;
+            if (locationId.contains(",")) {
+                ids = emerMsgUtils.separateLocation(locationId);
+            }
+            else {
+                ids = new ArrayList<>();
                 Long id = Long.parseLong(locationId) - 135;
-                Optional<Location> OptLocation = locationRepository.findById(id);
+                ids.add(id);
+            }
+            for (int n = 0; n < ids.size(); n++) {
+                Optional<Location> OptLocation = locationRepository.findById(ids.get(n));
                 String emergencyTopic = emerMsgUtils.getEmergencyTopic(message);
                 String emergencyType = emerMsgUtils.getEmergencyType(message);
                 if (OptLocation.isPresent()) {
