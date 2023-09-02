@@ -21,13 +21,14 @@ public class TopicService {
     private final SubscribeRepository subscribeRepository;
     private final MemberRepository memberRepository;
 
-    public SubscribeResponseDTO getTopic(Long memberId) {
+    public SubscribeResponseDTO getTopic(Member member) {
+        Long memberId = member.getId();
         List<Subscribe> subscribeList = subscribeRepository.findByMemberId(memberId);
-        if (subscribeList.isEmpty())
-            return null;
 
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MEMBER_NOT_FOUND));
+        if (subscribeList.isEmpty()) {
+            SubscribeRequestDTO requestDTO = new SubscribeRequestDTO(false, new NotificationListDTO(new NaturalDisasterDTO(), new SocialDisasterDTO(), new SubwayDTO(), new RoadControllerDTO()));
+            saveTopic(member, requestDTO);
+        }
 
         NaturalDisasterDTO naturalDisasterDTO = NaturalDisasterDTO.of(
                 subscribeRepository.findByMemberIdAndTopic(memberId, "typhoon").isSubscribe(),
