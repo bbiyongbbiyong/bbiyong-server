@@ -28,4 +28,16 @@ public class EmerMsgUtils {
             return type.get().getType();
         return "natural";
     }
+
+    public List<Long> separateLocation(String locationId) {
+        String [] locations = locationId.split(",");
+        List<Long> result = new ArrayList<>();
+        for (int i = 0; i < locations.length; i++) {
+            Long num = Long.parseLong(locations[i]);
+            num = num - 135;
+            result.add(num);
+        }
+        return (result);
+    }
+
 }
