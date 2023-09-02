@@ -4,7 +4,6 @@ import com.capstone.emerMsg.domain.EmerMsg;
 import com.capstone.emerMsg.service.EmerMsgService;
 import com.capstone.location.domain.Location;
 import com.capstone.location.repository.LocationRepository;
-import com.capstone.member.domain.Member;
 import com.capstone.openapi.utils.CommonUtils;
 import com.capstone.openapi.utils.DateUtils;
 import com.capstone.openapi.utils.EmerMsgUtils;
@@ -33,6 +32,7 @@ public class EmerMsgOpenAPI implements OpenAPI {
     private final LocationRepository locationRepository;
     private final EmerMsgUtils emerMsgUtils;
     private final DateUtils dateUtils;
+    private final CommonUtils commonUtils;
 
     @Value("${app.emergency-message-key}")
     private String EMERGENCY_MESSAGE_KEY;
@@ -134,6 +134,8 @@ public class EmerMsgOpenAPI implements OpenAPI {
                             .build();
 
                     emerMsgService.addEmerMsg(emerMsg);
+
+                    commonUtils.sendNotificationInfo(emergencyTopic, message);
                 }
             }
         }
