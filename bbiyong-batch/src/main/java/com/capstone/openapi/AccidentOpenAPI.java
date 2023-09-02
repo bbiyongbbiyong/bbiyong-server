@@ -4,6 +4,7 @@ import com.capstone.accident.domain.Accident;
 import com.capstone.accident.service.AccidentService;
 import com.capstone.location.service.LocationService;
 import com.capstone.openapi.utils.AccidentUtils;
+import com.capstone.openapi.utils.CommonUtils;
 import com.capstone.openapi.utils.DateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,7 @@ import static java.net.URLEncoder.encode;
 public class AccidentOpenAPI implements OpenAPI {
 
     private final AccidentService accidentService;
+    private final CommonUtils commonUtils;
 
     @Value("${app.seoul-openapi-key}")
     private String SEOUL_OPENAPI_KEY;
@@ -131,6 +133,8 @@ public class AccidentOpenAPI implements OpenAPI {
                     .build();
 
             accidentService.addAccident(accident);
+
+            commonUtils.sendNotificationInfo(accidentTopic, accidentInfo);
         }
     }
 }

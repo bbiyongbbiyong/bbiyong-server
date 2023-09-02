@@ -17,6 +17,7 @@ dependencies {
     implementation 'io.github.redouane59.twitter:twittered:2.21'
     implementation 'org.json:json:20220924'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+    implementation 'com.google.firebase:firebase-admin:9.1.0'
 }
 
 test {
