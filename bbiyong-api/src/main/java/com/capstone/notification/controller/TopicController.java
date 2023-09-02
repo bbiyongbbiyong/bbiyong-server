@@ -34,7 +34,7 @@ public class TopicController {
     @Operation(summary = "알람 토픽 조회", description = "알람 받을 토픽을 조회합니다.")
     public ResponseEntity<BasicResponse> getSubscribeTopic(@ReqMember SecurityUserDetails securityUserDetails) {
         return basicResponse.ok(
-                topicService.getTopic(securityUserDetails.member().getId())
+                topicService.getTopic(securityUserDetails.member())
         );
     }
 }
