@@ -24,9 +24,6 @@ public class EmerMsgService {
 
     @Transactional
     public void addEmerMsg(EmerMsg newEmerMsg) {
-        Long openapiId = newEmerMsg.getOpenapiId();
-        Optional<EmerMsg> emerMsg = emerMsgRepository.findByOpenapiId(openapiId);
-        if (emerMsg.isEmpty())
             emerMsgRepository.save(newEmerMsg);
     }
 
