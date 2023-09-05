@@ -1,6 +1,7 @@
 package com.capstone.openapi;
 
 import com.capstone.accident.domain.Accident;
+import com.capstone.accident.repository.AccidentRepository;
 import com.capstone.accident.service.AccidentService;
 import com.capstone.location.service.LocationService;
 import com.capstone.openapi.utils.AccidentUtils;
@@ -22,6 +23,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Optional;
 
 import static java.net.URLEncoder.encode;
 
@@ -31,6 +33,7 @@ import static java.net.URLEncoder.encode;
 public class AccidentOpenAPI implements OpenAPI {
 
     private final AccidentService accidentService;
+    private final AccidentRepository accidentRepository;
     private final CommonUtils commonUtils;
 
     @Value("${app.seoul-openapi-key}")
@@ -115,26 +118,29 @@ public class AccidentOpenAPI implements OpenAPI {
             BigDecimal yMap = jsonObject.getBigDecimal("grs80tm_y"); /*Y 좌표*/
             String accidentInfo = String.valueOf(jsonObject.get("acc_info")).replace("\r", "\n"); /*상세 정보*/
 
-            Date startDate = dateUtils.parseDateFormat(intStartDate, intStartTime);
-            Date endDate = dateUtils.parseDateFormat(intEndDate, intEndTime);
+            Optional<Accident> optAccident = accidentRepository.findByOpenapiId(openapiId);
+            if (optAccident.isEmpty()) {
+                Date startDate = dateUtils.parseDateFormat(intStartDate, intStartTime);
+                Date endDate = dateUtils.parseDateFormat(intEndDate, intEndTime);
 
-            String locationName = xyChangeOpenAPI.XYChangeToAddress(xMap, yMap);
+                String locationName = xyChangeOpenAPI.XYChangeToAddress(xMap, yMap);
 
-            String accidentTopic = accidentUtils.getAccidentTopic(accidentType);
+                String accidentTopic = accidentUtils.getAccidentTopic(accidentType);
 
-            Accident accident = Accident.builder()
-                    .openapiId(openapiId)
-                    .startDate(startDate)
-                    .endDate(endDate)
-                    .accidentType(accidentType)
-                    .accidentTopic(accidentTopic)
-                    .accidentInfo(accidentInfo)
-                    .location(locationService.findLocationByName(locationName))
-                    .build();
+                Accident accident = Accident.builder()
+                        .openapiId(openapiId)
+                        .startDate(startDate)
+                        .endDate(endDate)
+                        .accidentType(accidentType)
+                        .accidentTopic(accidentTopic)
+                        .accidentInfo(accidentInfo)
+                        .location(locationService.findLocationByName(locationName))
+                        .build();
 
-            accidentService.addAccident(accident);
+                accidentService.addAccident(accident);
 
-            commonUtils.sendNotificationInfo(accidentTopic, accidentInfo);
+                commonUtils.sendNotificationInfo(accidentTopic, accidentInfo);
+            }
         }
     }
 }

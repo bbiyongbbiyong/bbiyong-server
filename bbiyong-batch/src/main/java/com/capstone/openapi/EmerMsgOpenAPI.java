@@ -1,6 +1,7 @@
 package com.capstone.openapi;
 
 import com.capstone.emerMsg.domain.EmerMsg;
+import com.capstone.emerMsg.respository.EmerMsgRepository;
 import com.capstone.emerMsg.service.EmerMsgService;
 import com.capstone.location.domain.Location;
 import com.capstone.location.repository.LocationRepository;
@@ -29,6 +30,7 @@ import static java.net.URLEncoder.encode;
 public class EmerMsgOpenAPI implements OpenAPI {
 
     private final EmerMsgService emerMsgService;
+    private final EmerMsgRepository emerMsgRepository;
     private final LocationRepository locationRepository;
     private final EmerMsgUtils emerMsgUtils;
     private final DateUtils dateUtils;
@@ -101,41 +103,43 @@ public class EmerMsgOpenAPI implements OpenAPI {
 
         for (int i = 0; i < jsonArray.length(); i++) {
             jsonObject = (JSONObject) jsonArray.get(i);
-
-            String openapiId = String.valueOf(jsonObject.get("md101_sn"));
+            Long openapiId = Long.valueOf((String) jsonObject.get("md101_sn"));
             String locationId = String.valueOf(jsonObject.get("location_id"));
             String message = String.valueOf(jsonObject.get("msg"));
             String strStartDate = String.valueOf(jsonObject.get("create_date"));
             Date startDate = dateUtils.StringToDate(strStartDate);
             Date endDate = dateUtils.getEndDate(startDate);
 
-            List<Long> ids;
-            if (locationId.contains(",")) {
-                ids = emerMsgUtils.separateLocation(locationId);
-            }
-            else {
-                ids = new ArrayList<>();
-                Long id = Long.parseLong(locationId) - 135;
-                ids.add(id);
-            }
-            for (int n = 0; n < ids.size(); n++) {
-                Optional<Location> OptLocation = locationRepository.findById(ids.get(n));
-                String emergencyTopic = emerMsgUtils.getEmergencyTopic(message);
-                String emergencyType = emerMsgUtils.getEmergencyType(message);
-                if (OptLocation.isPresent()) {
-                    EmerMsg emerMsg = EmerMsg.builder()
-                            .openapiId(Long.parseLong(openapiId))
-                            .message(message)
-                            .startDate(startDate)
-                            .endDate(endDate)
-                            .location(OptLocation.get())
-                            .emergencyTopic(emergencyTopic)
-                            .emergencyType(emergencyType)
-                            .build();
+            Optional<EmerMsg> optEmerMsg = emerMsgRepository.findByOpenapiId(openapiId);
+            if (optEmerMsg.isEmpty()) {
+                List<Long> ids;
+                if (locationId.contains(",")) {
+                    ids = emerMsgUtils.separateLocation(locationId);
+                }
+                else {
+                    ids = new ArrayList<>();
+                    Long id = Long.parseLong(locationId) - 135;
+                    ids.add(id);
+                }
+                for (int n = 0; n < ids.size(); n++) {
+                    Optional<Location> OptLocation = locationRepository.findById(ids.get(n));
+                    String emergencyTopic = emerMsgUtils.getEmergencyTopic(message);
+                    String emergencyType = emerMsgUtils.getEmergencyType(message);
+                    if (OptLocation.isPresent()) {
+                        EmerMsg emerMsg = EmerMsg.builder()
+                                .openapiId(openapiId)
+                                .message(message)
+                                .startDate(startDate)
+                                .endDate(endDate)
+                                .location(OptLocation.get())
+                                .emergencyTopic(emergencyTopic)
+                                .emergencyType(emergencyType)
+                                .build();
 
-                    emerMsgService.addEmerMsg(emerMsg);
+                        emerMsgService.addEmerMsg(emerMsg);
 
-                    commonUtils.sendNotificationInfo(emergencyTopic, message);
+                        commonUtils.sendNotificationInfo(emergencyTopic, message);
+                    }
                 }
             }
         }

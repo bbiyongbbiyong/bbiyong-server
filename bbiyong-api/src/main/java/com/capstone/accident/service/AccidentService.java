@@ -28,9 +28,6 @@ public class AccidentService {
 
     @Transactional
     public void addAccident(Accident newAccident) {
-        Long openapiId = newAccident.getOpenapiId();
-        Optional<Accident> accident = accidentRepository.findByOpenapiId(openapiId);
-        if (accident.isEmpty())
             accidentRepository.save(newAccident);
     }
 
