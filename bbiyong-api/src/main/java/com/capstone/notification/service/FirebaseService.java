@@ -1,6 +1,5 @@
 package com.capstone.notification.service;
 
-import com.capstone.notification.domain.FcmToken;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -27,6 +26,12 @@ public class FirebaseService {
 
     @Value("${fcm.key.scope}")
     private String fireBaseScope;
+
+    private final NotificationService notificationService;
+
+    public FirebaseService(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
 
 
     // fcm 기본 설정 진행
@@ -78,6 +83,7 @@ public class FirebaseService {
                     }
                 }
                 log.error("List of tokens are not valid FCM token : " + failedTokens);
+                notificationService.deleteFcmToken(failedTokens);
             }
         } catch (FirebaseMessagingException e) {
             log.error("cannot send to memberList push message. error info : {}", e.getMessage());

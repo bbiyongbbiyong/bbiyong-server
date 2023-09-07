@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,5 +31,10 @@ public class NotificationService {
 
             fcmTokenRepository.save(fcmToken);
         }
+    }
+
+    @Transactional
+    public void deleteFcmToken(List<String> tokens) {
+        fcmTokenRepository.deleteAllByToken(tokens);
     }
 }
