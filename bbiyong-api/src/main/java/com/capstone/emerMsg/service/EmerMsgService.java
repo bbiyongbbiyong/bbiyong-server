@@ -24,7 +24,7 @@ public class EmerMsgService {
 
     @Transactional
     public void addEmerMsg(EmerMsg newEmerMsg) {
-            emerMsgRepository.save(newEmerMsg);
+        emerMsgRepository.save(newEmerMsg);
     }
 
     @Transactional
