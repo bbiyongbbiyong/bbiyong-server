@@ -3,6 +3,7 @@ package com.capstone.notification.repository;
 import com.capstone.member.domain.Member;
 import com.capstone.notification.domain.FcmToken;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -15,4 +16,8 @@ public interface FcmTokenRepository extends JpaRepository<FcmToken, Long> {
 
     @Query(value = "select f.token from FcmToken f where f.member = :member")
     List<String> findAllByMemberAndSubscribe(@Param("member") Member member);
+
+    @Modifying
+    @Query(value = "delete from FcmToken f where f.token = :tokens")
+    void deleteAllByToken(@Param("tokens") List<String> tokens);
 }
