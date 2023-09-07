@@ -33,7 +33,6 @@ import static java.net.URLEncoder.encode;
 public class AccidentOpenAPI implements OpenAPI {
 
     private final AccidentService accidentService;
-    private final AccidentRepository accidentRepository;
     private final CommonUtils commonUtils;
 
     @Value("${app.seoul-openapi-key}")
@@ -49,6 +48,7 @@ public class AccidentOpenAPI implements OpenAPI {
     private final LocationService locationService;
     private final DateUtils dateUtils;
     private final AccidentUtils accidentUtils;
+    private final AccidentRepository accidentRepository;
 
     @Override
     public void call() throws IOException, ParseException, org.json.simple.parser.ParseException {
@@ -108,7 +108,7 @@ public class AccidentOpenAPI implements OpenAPI {
         for (int i = 0; i < jsonArray.length(); i++) {
             jsonObject = (JSONObject) jsonArray.get(i);
 
-            Long openapiId = Long.valueOf((Integer) jsonObject.get("acc_id")); /*돌발 아이디*/
+            Long openapiId = Long.valueOf(String.valueOf(jsonObject.get("acc_id"))); /*돌발 아이디*/
             Integer intStartDate = (Integer) jsonObject.get("occr_date"); /*발생 일자*/
             int intStartTime = jsonObject.getInt("occr_time"); /*발생 시각*/
             Integer intEndDate = (Integer) jsonObject.get("exp_clr_date"); /*종료 일자*/

@@ -103,7 +103,7 @@ public class EmerMsgOpenAPI implements OpenAPI {
 
         for (int i = 0; i < jsonArray.length(); i++) {
             jsonObject = (JSONObject) jsonArray.get(i);
-            Long openapiId = Long.valueOf((String) jsonObject.get("md101_sn"));
+            Long openapiId = Long.valueOf((Integer) jsonObject.get("md101_sn"));
             String locationId = String.valueOf(jsonObject.get("location_id"));
             String message = String.valueOf(jsonObject.get("msg"));
             String strStartDate = String.valueOf(jsonObject.get("create_date"));
