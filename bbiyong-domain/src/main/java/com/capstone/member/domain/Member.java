@@ -32,6 +32,7 @@ public class Member extends DateTimeEntity {
     @Column(nullable = false)
     private boolean notifyOn;
 
+    @Builder.Default
     @OneToMany(mappedBy = "member", cascade = ALL, orphanRemoval = true)
     private List<FcmToken> fcmTokens = new ArrayList();
 
